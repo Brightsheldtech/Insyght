@@ -101,8 +101,8 @@ launch, and operate Insyght.
 ### Do today
 - [ ] Namecheap — secure insyght.io domain
 - [ ] Dojah — create account and get test API key
-- [ ] Supabase — create project and get credentials
-- [ ] Flutterwave — set up business account under BrightSheld Technologies
+- [x] Supabase — new project being created (existing account)
+- [x] Flutterwave — business account already set up under BrightSheld Technologies
 - [ ] Google Workspace — activate hello@insyght.io
 
 ### Do this week
