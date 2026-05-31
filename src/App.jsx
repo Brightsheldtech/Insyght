@@ -131,12 +131,10 @@ function Nav() {
     <>
       <nav className="nav" aria-label="Main navigation">
         <div className="nav-inner">
-          {/* Wordmark */}
           <a href="/" className="wordmark" aria-label="Insyght home">
             Ins<span className="y-wrap">y<span className="y-dot" aria-hidden="true" /></span>ght
           </a>
 
-          {/* Desktop nav */}
           <div className="nav-right">
             <ul className="nav-links" role="list">
               <li><a href="#how-it-works" onClick={e => handleNavLink(e, 'how-it-works')}>How it works</a></li>
@@ -146,7 +144,6 @@ function Nav() {
             <a href="#hero" className="btn-nav-cta" onClick={e => handleNavLink(e, 'hero')}>Get a Report</a>
           </div>
 
-          {/* Hamburger */}
           <button
             className={`hamburger${drawerOpen ? ' open' : ''}`}
             onClick={toggleDrawer}
@@ -161,7 +158,6 @@ function Nav() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
       <div
         id="mobile-drawer"
         className={`mobile-drawer${drawerOpen ? ' open' : ''}`}
@@ -186,7 +182,6 @@ function Hero() {
   return (
     <section id="hero" className="hero">
       <div className="hero-inner">
-        {/* Left column */}
         <div className="hero-left">
           <div className="hero-badge" aria-label="Product category">
             <span className="badge-dot" aria-hidden="true" />
@@ -198,9 +193,10 @@ function Hero() {
           </h1>
 
           <p className="hero-subheadline">
-            Insyght delivers verified intelligence on any CAC-registered Nigerian company —
-            directors, shareholders, risk scores, news mentions, and digital footprint —
-            as a branded PDF report in under 2 minutes.
+            Before you sign a contract, onboard a vendor, or release payment to any Nigerian
+            company, run an Insyght check. Get verified CAC data, director profiles, risk
+            scores, media mentions, and digital presence in a single PDF report. Ready in
+            under 2 minutes.
           </p>
 
           <div className="hero-buttons">
@@ -214,7 +210,7 @@ function Hero() {
           </div>
 
           <div className="trust-row" role="list">
-            {['CAC-Verified Data', 'Risk-Scored Reports', 'PDF in Under 2 Minutes'].map(label => (
+            {['CAC Verified Data', 'Risk Scored Reports', 'PDF in Under 2 Minutes'].map(label => (
               <div key={label} className="trust-item" role="listitem">
                 <span style={{ color: 'var(--success)', display: 'flex' }}>
                   <CheckIcon size={14} />
@@ -225,7 +221,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right column — mock product card */}
         <div className="hero-right">
           <div className="hero-card-wrap">
             <div className="hero-card-glow" aria-hidden="true" />
@@ -236,7 +231,7 @@ function Hero() {
                 </div>
                 <div className="hero-card-header-text">
                   <h3>Company Intelligence Search</h3>
-                  <p>Powered by CAC + AI</p>
+                  <p>Powered by CAC and AI</p>
                 </div>
               </div>
 
@@ -259,7 +254,6 @@ function Hero() {
 
               <div className="card-divider" aria-hidden="true" />
 
-              {/* Mock result */}
               <div className="result-card" role="region" aria-label="Sample search result">
                 <div className="result-header">
                   <div>
@@ -307,7 +301,7 @@ function SocialProof() {
   return (
     <section className="proof-section" aria-label="Trusted by">
       <p className="proof-label">
-        Trusted by Nigeria&apos;s procurement teams, law firms &amp; financial institutions
+        Used by procurement officers, legal practitioners and financial analysts across Nigeria
       </p>
       <div className="marquee-outer" aria-hidden="true">
         <div className="marquee-track">
@@ -329,19 +323,19 @@ const STEPS = [
     num: '01',
     icon: <SearchIcon />,
     title: 'Search',
-    desc: 'Enter any company name or CAC RC number. Our system instantly pulls live data from the official CAC database and cross-references multiple public sources for accuracy.',
+    desc: 'Enter any company name or CAC RC number. Insyght searches the official CAC database and cross-references public records to confirm the company is exactly who they claim to be.',
   },
   {
     num: '02',
     icon: <CreditCardIcon />,
     title: 'Pay',
-    desc: 'One secure payment of ₦10,000 via Paystack. No subscription. No hidden fees. No recurring charges. Pay only for the reports your team needs.',
+    desc: 'Pay ₦10,000 securely via Paystack. No subscriptions, no hidden fees, no recurring charges. Each payment gives you one complete company intelligence report.',
   },
   {
     num: '03',
     icon: <ZapIcon />,
     title: 'Know',
-    desc: 'Your branded PDF intelligence report is ready in under 2 minutes — fully formatted, shareable, and built for professional due diligence workflows.',
+    desc: 'Your report is ready in under 2 minutes. Download it as a formatted PDF to share with your team, attach to a vendor file, or present in a board meeting.',
   },
 ]
 
@@ -387,7 +381,7 @@ const REPORT_SECTIONS = [
   {
     icon: <NewsIcon />,
     name: 'News & Mentions',
-    data: 'Businessday · 3 mentions (2023–2025)\nPunch — No adverse mentions\nNAN — 1 business feature article',
+    data: 'Businessday: 3 mentions (2023 to 2025)\nPunch: No adverse mentions found\nNAN: 1 business feature article',
   },
   {
     icon: <BrainIcon />,
@@ -401,27 +395,27 @@ const FEATURE_ROWS = [
   {
     icon: <BuildingIcon />,
     title: 'Company Identity',
-    desc: 'Full CAC registration details, registered address, company type, incorporation date, and current legal status — verified directly against the official CAC database.',
+    desc: 'Full CAC registration details including RC number, registered office address, company type, and date of incorporation. Every data point is verified directly against the official CAC database.',
   },
   {
     icon: <UsersIcon />,
-    title: 'Directors & Ownership',
-    desc: 'Named directors, shareholding percentages, appointment dates, and nationalities — cross-referenced for adverse records and PEP (Politically Exposed Person) flags.',
+    title: 'Directors and Ownership',
+    desc: 'Named directors with shareholding percentages, appointment dates, and nationalities. Each profile is cross-referenced for adverse records and Politically Exposed Person connections.',
   },
   {
     icon: <GlobeIcon />,
     title: 'Digital Presence',
-    desc: 'Website health and SSL status, domain age, social media footprint, and online credibility signals that reveal how established (or not) a business actually is.',
+    desc: 'Website health, SSL validity, domain registration age, and social media activity. These signals quickly distinguish companies with real commercial operations from those that exist on paper only.',
   },
   {
     icon: <NewsIcon />,
-    title: 'News & Media Mentions',
-    desc: 'Aggregated mentions across Nigerian media — Businessday, Punch, Vanguard, The Cable, and more — automatically flagged by sentiment for quick scanning.',
+    title: 'News and Media Mentions',
+    desc: 'Coverage aggregated from Nigerian business media including Businessday, Punch, Vanguard, and The Cable. Each mention is automatically categorised by sentiment so you can spot red flags at a glance.',
   },
   {
     icon: <BrainIcon />,
-    title: 'AI Risk Summary & Score',
-    desc: 'A plain-English risk assessment synthesising all data points into an actionable risk score (0–100). Know the headline risk before you read the full report.',
+    title: 'AI Risk Score and Summary',
+    desc: 'An overall risk score from 0 to 100, backed by a plain-English assessment of key risk factors. Designed for decision-makers who need the critical insight before reading the full report.',
   },
 ]
 
@@ -431,7 +425,6 @@ function ReportSection() {
       <div className="section-inner">
         <h2 className="section-title left">Everything inside every Insyght company report</h2>
         <div className="report-grid">
-          {/* Left — mock report */}
           <div className="mock-report" role="img" aria-label="Sample intelligence report preview">
             <div className="mock-report-header">
               <div>
@@ -452,11 +445,11 @@ function ReportSection() {
                       <div className="badge-medium-risk">MEDIUM RISK</div>
                       <div className="report-ai-wrap">
                         <p className="report-ai-text">
-                          Zenith Trading Ltd presents a medium risk profile. While CAC registration is
-                          confirmed and directors show no adverse flags, limited trading history and
-                          thin digital footprint suggest a company in early growth. We recommend
-                          requesting audited financials before any contract above ₦5M.
-                          No litigation records were found in public databases…
+                          Zenith Trading Ltd is registered and active with the CAC. Directors
+                          show no adverse flags in public records, but the company has limited
+                          trading history and a thin digital footprint. We recommend requesting
+                          audited financial statements for any engagement above ₦5 million.
+                          No litigation records were found in public databases.
                         </p>
                         <div className="report-ai-fade" aria-hidden="true" />
                       </div>
@@ -473,7 +466,6 @@ function ReportSection() {
             </div>
           </div>
 
-          {/* Right — feature rows */}
           <div className="feature-rows" role="list">
             {FEATURE_ROWS.map(row => (
               <div key={row.title} className="feature-row" role="listitem">
@@ -496,17 +488,17 @@ function ReportSection() {
 /* ── Pricing ──────────────────────────────────────────────────── */
 const SINGLE_FEATURES = [
   'Full CAC registration verification',
-  'Directors & shareholder breakdown',
-  'Digital presence & web health check',
+  'Directors and shareholder breakdown',
+  'Digital presence and web health check',
   'Nigerian media news mentions',
-  'AI risk score & plain-English summary',
+  'AI risk score and plain-English summary',
   'Branded PDF download',
 ]
 
 const TEAM_FEATURES = [
   '20 reports per month',
-  'Team dashboard & shared history',
-  'Company monitoring alerts',
+  'Team dashboard with shared report history',
+  'Company monitoring and change alerts',
   'Priority support',
   'White-label PDF option',
 ]
@@ -548,14 +540,14 @@ function Pricing() {
           <PricingCard
             plan="Single Report"
             price="₦10,000"
-            desc="One complete intelligence report on any Nigerian company. Pay once, download instantly."
+            desc="One full intelligence report on any CAC-registered Nigerian company. Pay once, download immediately. No account needed."
             features={SINGLE_FEATURES}
             cta="Get a Report"
           />
           <PricingCard
             plan="Five Reports"
             price="₦40,000"
-            desc="Run five full company checks at a significantly better rate. Ideal for active deal pipelines."
+            desc="Five full company intelligence reports at a better per-report rate. Suited for vendor onboarding, legal due diligence, and active deal pipelines."
             features={SINGLE_FEATURES}
             cta="Get Started"
             featured
@@ -566,7 +558,7 @@ function Pricing() {
             plan="Team Plan"
             price="₦150,000"
             priceNote="/month"
-            desc="Built for law firms, banks, and procurement teams that need ongoing company intelligence."
+            desc="Designed for law firms, banks, procurement departments, and compliance teams that run regular company checks."
             features={TEAM_FEATURES}
             cta="Contact Sales"
             ctaStyle="outline"
@@ -585,7 +577,7 @@ function FinalCTA() {
         <h2 className="cta-headline" id="cta-headline">
           Don&apos;t sign until you&apos;ve run an Insyght check.
         </h2>
-        <p className="cta-sub">Verify any Nigerian company in under 2 minutes. No subscription required.</p>
+        <p className="cta-sub">Search any CAC-registered Nigerian company and get your report in under 2 minutes. No subscription, no commitment.</p>
         <a href="#hero" className="btn-primary" style={{ fontSize: '1.0625rem', padding: '1rem 2rem' }}
           onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}>
           Get a Report <ArrowRightIcon />
@@ -605,7 +597,7 @@ function Footer() {
             Ins<span className="y-wrap">y<span className="y-dot" aria-hidden="true" /></span>ght
           </a>
           <p className="footer-tagline">
-            Nigeria&apos;s company intelligence platform. Due diligence in minutes, not days.
+            Nigeria&apos;s company intelligence platform. Helping businesses make informed decisions before they commit.
           </p>
         </div>
 
