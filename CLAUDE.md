@@ -11,7 +11,8 @@
 - Frontend: React 19 + Vite + Tailwind CSS 4 (custom CSS primary)
 - Fonts: Outfit (headings) + Inter (body)
 - Colours: Forest green `#2D6A4F` accent, warm cream `#F3EFE7` alt bg, dark `#0E1A0E` CTA/footer
-- Hosting: Netlify (auto-deploys from `main`)
+- Hosting: Railway (frontend + backend in one project)
+- Payments: Flutterwave (business account under BrightSheld Technologies)
 - Dev branch: `claude/insyght-design-overhaul-dsEAs`
 
 ## Business context

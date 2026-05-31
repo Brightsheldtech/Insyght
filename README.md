@@ -71,15 +71,16 @@ Every report ends with an AI-generated risk score (0–100) and a plain English 
 | Backend | Node.js + Express |
 | Database | Supabase (PostgreSQL) |
 | Auth | Supabase Auth |
-| Payments | Paystack |
+| Payments | Flutterwave (BrightSheld Technologies business account) |
 | CAC and company data | Dojah API (paid reports only) |
 | Free preview data | CAC portal scraper (Puppeteer) |
 | Web intelligence | SerpAPI |
 | Sector licence checks | Scrapers against CBN, NAFDAC, SEC, NCC, NAICOM public registers |
 | AI analysis | Claude API (claude-sonnet) |
 | PDF generation | Puppeteer |
-| Frontend hosting | Netlify (auto-deploys from main) |
-| Backend hosting | Render |
+| Hosting | Railway (frontend + backend in one project) |
+| Transactional email | Brevo (report delivery, payment confirmation, alerts) |
+| Error monitoring | Sentry |
 
 ---
 
@@ -87,7 +88,7 @@ Every report ends with an AI-generated risk score (0–100) and a plain English 
 
 **Frontend: Complete and live**
 
-Landing page is fully built and deployed at insyght.netlify.app. Sections include:
+Landing page is fully built and deployed. Sections include:
 - Hero with live search UI mockup
 - Who it's built for (4 persona cards)
 - How it works (3 steps)
@@ -102,13 +103,13 @@ Landing page is fully built and deployed at insyght.netlify.app. Sections includ
 ## Build Plan
 
 ### Week 1 — Foundation
-User auth via Supabase (email/password + Google OAuth). Paystack payment integration. Core flow — search, pay, confirmation screen — is functional end to end.
+User auth via Supabase (email/password + Google OAuth). Flutterwave payment integration. Core flow — search, pay, confirmation screen — is functional end to end.
 
 ### Week 2 — Free Preview (CAC Scraper)
 Puppeteer scraper hits the CAC public portal on every search. Returns company name, RC number, registration status, incorporation date, and company type. This data is free — no API cost. Everything beyond this is locked behind payment. Scraper results are cached in Supabase for 7 days to avoid redundant requests.
 
 ### Week 3 — Paid Report: Tier 1
-Dojah API call triggered only after confirmed Paystack payment. Populates Company Identity, Directors and Ownership, Annual Returns, FIRS TIN, and SCUML sections of the report.
+Dojah API call triggered only after confirmed Flutterwave payment. Populates Company Identity, Directors and Ownership, Annual Returns, FIRS TIN, and SCUML sections of the report.
 
 ### Week 4 — Paid Report: Tier 2
 SerpAPI for news and web intelligence. WHOIS lookup for domain data. Social presence detection. Populates Digital Presence and News sections.
@@ -171,15 +172,32 @@ insyght/
 
 ---
 
-## Environment Variables (Backend)
+## Environment Variables (Railway)
 
-```
+```env
+# Supabase
 SUPABASE_URL=
-SUPABASE_SERVICE_KEY=
-PAYSTACK_SECRET_KEY=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# Dojah
 DOJAH_API_KEY=
+DOJAH_APP_ID=
+
+# SerpAPI
 SERPAPI_KEY=
+
+# Anthropic
 ANTHROPIC_API_KEY=
+
+# Flutterwave
+FLUTTERWAVE_PUBLIC_KEY=
+FLUTTERWAVE_SECRET_KEY=
+FLUTTERWAVE_ENCRYPTION_KEY=
+
+# App
+NODE_ENV=production
+FRONTEND_URL=https://insyght.io
 ```
 
 ---

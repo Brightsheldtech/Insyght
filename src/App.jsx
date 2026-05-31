@@ -500,7 +500,7 @@ const STEPS = [
     num: '02',
     icon: <CreditCardIcon />,
     title: 'Pay',
-    desc: 'Pay ₦10,000 securely via Paystack. No subscriptions, no hidden fees, no recurring charges. Each payment gives you one complete 11-section intelligence report.',
+    desc: 'Pay ₦10,000 securely via Flutterwave. No subscriptions, no hidden fees, no recurring charges. Each payment gives you one complete 11-section intelligence report.',
   },
   {
     num: '03',
