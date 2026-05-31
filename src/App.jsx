@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 /* ── Inline SVG icons ────────────────────────────────────────── */
 const SearchIcon = () => (
@@ -122,9 +122,35 @@ const MARQUEE_NAMES = [
   'Meridian Consulting', 'Lagos Legal Group', 'Premier Trade Partners', 'Integrity Advisory',
 ]
 
+/* ── Intelligence Cloud tags ─────────────────────────────────── */
+const INTEL_TAGS = [
+  { text: 'CAC Verification',    x: 2,  y: 8,  anim: 'float-a', dur: 7,   delay: 0,    accent: true },
+  { text: 'Director Checks',     x: 36, y: 3,  anim: 'float-b', dur: 9,   delay: -3    },
+  { text: 'FIRS TIN',            x: 68, y: 8,  anim: 'float-c', dur: 6,   delay: -1.5, accent: true },
+  { text: 'Shareholder Lookup',  x: 74, y: 16, anim: 'float-d', dur: 11,  delay: -5    },
+  { text: 'NAICOM Check',        x: 13, y: 17, anim: 'float-b', dur: 8,   delay: -2.8  },
+  { text: 'NCC Licence',         x: 56, y: 1,  anim: 'float-a', dur: 8.5, delay: -7    },
+  { text: 'SEC Registration',    x: 1,  y: 42, anim: 'float-c', dur: 8,   delay: -2.2  },
+  { text: 'CBN Compliance',      x: 74, y: 37, anim: 'float-d', dur: 10,  delay: -4    },
+  { text: 'Annual Returns',      x: 2,  y: 68, anim: 'float-a', dur: 7.5, delay: -1    },
+  { text: 'NAFDAC Licence',      x: 71, y: 60, anim: 'float-b', dur: 9.5, delay: -6    },
+  { text: 'SCUML Check',         x: 4,  y: 83, anim: 'float-c', dur: 8,   delay: -3.5  },
+  { text: 'KYB Compliance',      x: 29, y: 86, anim: 'float-d', dur: 7,   delay: -2,   accent: true },
+  { text: 'Domain Intelligence', x: 55, y: 81, anim: 'float-a', dur: 11,  delay: -4.5  },
+  { text: 'AI Risk Score',       x: 72, y: 78, anim: 'float-b', dur: 6.5, delay: -0.8, accent: true },
+  { text: 'Media Scan',          x: 19, y: 76, anim: 'float-c', dur: 9,   delay: -5.5  },
+]
+
 /* ── Navigation ──────────────────────────────────────────────── */
 function Nav() {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [scrolled, setScrolled]     = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const toggleDrawer = () => setDrawerOpen(v => !v)
   const closeDrawer  = () => setDrawerOpen(false)
@@ -137,7 +163,7 @@ function Nav() {
 
   return (
     <>
-      <nav className="nav" aria-label="Main navigation">
+      <nav className={`nav${scrolled ? ' nav-scrolled' : ''}`} aria-label="Main navigation">
         <div className="nav-inner">
           <a href="/" className="wordmark" aria-label="Insyght home">
             Ins<span className="y-wrap">y<span className="y-dot" aria-hidden="true" /></span>ght
@@ -185,8 +211,31 @@ function Nav() {
   )
 }
 
+/* ── Animated score counter hook ──────────────────────────────── */
+function useCountUp(target, { delay = 0, duration = 1200 } = {}) {
+  const [value, setValue] = useState(0)
+  useEffect(() => {
+    let start = null
+    let rafId
+    const timeout = setTimeout(() => {
+      const step = ts => {
+        if (!start) start = ts
+        const progress = Math.min((ts - start) / duration, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setValue(Math.round(eased * target))
+        if (progress < 1) rafId = requestAnimationFrame(step)
+      }
+      rafId = requestAnimationFrame(step)
+    }, delay)
+    return () => { clearTimeout(timeout); cancelAnimationFrame(rafId) }
+  }, [target, delay, duration])
+  return value
+}
+
 /* ── Hero ─────────────────────────────────────────────────────── */
 function Hero() {
+  const score = useCountUp(18, { delay: 900, duration: 1400 })
+
   return (
     <section id="hero" className="hero">
       <div className="hero-inner">
@@ -292,10 +341,10 @@ function Hero() {
                 <div className="result-footer">
                   <span className="result-score-label">Risk Score</span>
                   <div className="score-bar-wrap">
-                    <div className="score-bar" role="progressbar" aria-valuenow={18} aria-valuemin={0} aria-valuemax={100} aria-label="Risk score 18 out of 100">
-                      <div className="score-fill" style={{ width: '18%' }} />
+                    <div className="score-bar" role="progressbar" aria-valuenow={score} aria-valuemin={0} aria-valuemax={100} aria-label={`Risk score ${score} out of 100`}>
+                      <div className="score-fill" style={{ width: `${score}%` }} />
                     </div>
-                    <span className="score-num">18/100</span>
+                    <span className="score-num">{score}/100</span>
                   </div>
                 </div>
               </div>
@@ -322,6 +371,62 @@ function SocialProof() {
               <span className="marquee-sep" />
             </span>
           ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ── Intelligence Cloud ──────────────────────────────────────── */
+function IntelligenceCloud() {
+  return (
+    <section className="intel-cloud-section" aria-label="Intelligence capabilities">
+      {/* Mobile: pill grid + text */}
+      <div className="intel-cloud-mobile">
+        <div className="intel-inner-mobile">
+          <h2 className="intel-cloud-headline">
+            11 intelligence checks.<br />One report. Under 2 minutes.
+          </h2>
+          <p className="intel-cloud-sub">
+            Every Insyght report runs all of these automatically, against official Nigerian government sources.
+          </p>
+          <div className="intel-tag-grid" aria-hidden="true">
+            {INTEL_TAGS.map((tag, i) => (
+              <span
+                key={tag.text}
+                className={`intel-tag${tag.accent ? ' accent' : ''}`}
+                style={{ animationDelay: `${i * 0.055}s` }}
+              >
+                {tag.text}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop: floating scattered cloud */}
+      <div className="intel-cloud-canvas" aria-hidden="true">
+        {INTEL_TAGS.map(tag => (
+          <span
+            key={tag.text}
+            className={`intel-tag${tag.accent ? ' accent' : ''}`}
+            style={{
+              position: 'absolute',
+              left: `${tag.x}%`,
+              top:  `${tag.y}%`,
+              animation: `${tag.anim} ${tag.dur}s ease-in-out ${tag.delay}s infinite`,
+            }}
+          >
+            {tag.text}
+          </span>
+        ))}
+        <div className="intel-cloud-center">
+          <h2 className="intel-cloud-headline">
+            11 intelligence checks.<br />One report. Under 2 minutes.
+          </h2>
+          <p className="intel-cloud-sub">
+            Every Insyght report runs all of these automatically, against official Nigerian government sources.
+          </p>
         </div>
       </div>
     </section>
@@ -360,10 +465,15 @@ function WhoUsesInsyght() {
   return (
     <section id="who-uses" className="section who-section">
       <div className="section-inner">
-        <h2 className="section-title">Built for professionals who cannot afford to be wrong</h2>
+        <h2 className="section-title reveal">Built for professionals who cannot afford to be wrong</h2>
         <div className="persona-grid" role="list">
-          {PERSONAS.map(p => (
-            <article key={p.role} className="persona-card" role="listitem">
+          {PERSONAS.map((p, i) => (
+            <article
+              key={p.role}
+              className="persona-card reveal"
+              role="listitem"
+              style={{ transitionDelay: `${i * 0.1}s` }}
+            >
               <div className="persona-icon-wrap" aria-hidden="true">
                 {p.icon}
               </div>
@@ -404,10 +514,15 @@ function HowItWorks() {
   return (
     <section id="how-it-works" className="section">
       <div className="section-inner">
-        <h2 className="section-title">Company due diligence in three simple steps</h2>
+        <h2 className="section-title reveal">Company due diligence in three simple steps</h2>
         <div className="steps-grid" role="list">
-          {STEPS.map(step => (
-            <article key={step.num} className="step-card" role="listitem">
+          {STEPS.map((step, i) => (
+            <article
+              key={step.num}
+              className="step-card reveal"
+              role="listitem"
+              style={{ transitionDelay: `${i * 0.12}s` }}
+            >
               <div className="step-number" aria-hidden="true">STEP {step.num}</div>
               <div className="step-icon-wrap" aria-hidden="true">
                 {step.icon}
@@ -494,9 +609,9 @@ function ReportSection() {
   return (
     <section id="report" className="section report-section-bg" aria-label="What's inside a report">
       <div className="section-inner">
-        <h2 className="section-title left">Everything inside every Insyght report</h2>
+        <h2 className="section-title left reveal">Everything inside every Insyght report</h2>
         <div className="report-grid">
-          <div className="mock-report" role="img" aria-label="Sample intelligence report preview">
+          <div className="mock-report reveal" role="img" aria-label="Sample intelligence report preview">
             <div className="mock-report-header">
               <div>
                 <div className="mock-report-title">Zenith Trading Ltd</div>
@@ -505,8 +620,12 @@ function ReportSection() {
               <span className="report-stamp">VERIFIED</span>
             </div>
             <div className="mock-report-body">
-              {REPORT_SECTIONS.map(sec => (
-                <div key={sec.name} className={`report-sec${sec.isAI ? ' report-ai-section' : ''}`}>
+              {REPORT_SECTIONS.map((sec, i) => (
+                <div
+                  key={sec.name}
+                  className={`report-sec${sec.isAI ? ' report-ai-section' : ''}`}
+                  style={{ animationDelay: `${i * 0.08}s` }}
+                >
                   <div className="report-sec-header">
                     <span className="report-sec-icon" aria-hidden="true">{sec.icon}</span>
                     <span className="report-sec-name">{sec.name}</span>
@@ -526,8 +645,8 @@ function ReportSection() {
                     </>
                   ) : (
                     <div className="report-data-line">
-                      {sec.data.split('\n').map((line, i) => (
-                        <div key={i}>{line}</div>
+                      {sec.data.split('\n').map((line, j) => (
+                        <div key={j}>{line}</div>
                       ))}
                     </div>
                   )}
@@ -537,8 +656,13 @@ function ReportSection() {
           </div>
 
           <div className="feature-rows" role="list">
-            {FEATURE_ROWS.map(row => (
-              <div key={row.title} className="feature-row" role="listitem">
+            {FEATURE_ROWS.map((row, i) => (
+              <div
+                key={row.title}
+                className="feature-row reveal"
+                role="listitem"
+                style={{ transitionDelay: `${i * 0.08}s` }}
+              >
                 <div className="feature-icon-wrap" aria-hidden="true">
                   {row.icon}
                 </div>
@@ -577,9 +701,12 @@ const TEAM_FEATURES = [
   'White label PDF option',
 ]
 
-function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null }) {
+function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null, revealDelay = 0 }) {
   return (
-    <article className={`pricing-card${featured ? ' featured' : ''}`}>
+    <article
+      className={`pricing-card${featured ? ' featured' : ''} reveal`}
+      style={{ transitionDelay: `${revealDelay}s` }}
+    >
       {popular && <div className="popular-badge" aria-label="Most popular plan">{popular}</div>}
       {saveBadge && <div className="save-badge" aria-label={saveBadge}>{saveBadge}</div>}
       <div className="plan-name">{plan}</div>
@@ -610,7 +737,7 @@ function Pricing() {
   return (
     <section id="pricing" className="section">
       <div className="section-inner">
-        <h2 className="section-title">Simple pricing. No subscription required.</h2>
+        <h2 className="section-title reveal">Simple pricing. No subscription required.</h2>
         <div className="pricing-grid pricing-grid-4">
           <PricingCard
             plan="Single Report"
@@ -619,6 +746,7 @@ function Pricing() {
             desc="One full intelligence report on any CAC-registered Nigerian company. Pay once, download immediately."
             features={REPORT_FEATURES}
             cta="Get a Report"
+            revealDelay={0}
           />
           <PricingCard
             plan="Five Reports"
@@ -628,6 +756,7 @@ function Pricing() {
             features={REPORT_FEATURES}
             cta="Get Started"
             saveBadge="Save ₦10,000"
+            revealDelay={0.1}
           />
           <PricingCard
             plan="Ten Reports"
@@ -639,6 +768,7 @@ function Pricing() {
             featured
             popular="BEST VALUE"
             saveBadge="Save ₦25,000"
+            revealDelay={0.2}
           />
           <PricingCard
             plan="Team Plan"
@@ -648,6 +778,7 @@ function Pricing() {
             features={TEAM_FEATURES}
             cta="Contact Sales"
             ctaStyle="outline"
+            revealDelay={0.3}
           />
         </div>
         <p className="pricing-note">
@@ -663,6 +794,7 @@ function Pricing() {
 function FinalCTA() {
   return (
     <section className="cta-section" aria-labelledby="cta-headline">
+      <div className="cta-noise" aria-hidden="true" />
       <div className="cta-inner">
         <h2 className="cta-headline" id="cta-headline">
           Don&apos;t sign until you&apos;ve run an Insyght check.
@@ -673,8 +805,7 @@ function FinalCTA() {
         </p>
         <a
           href="#hero"
-          className="btn-primary"
-          style={{ fontSize: '1.0625rem', padding: '1rem 2rem' }}
+          className="btn-primary cta-btn"
           onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}
         >
           Get a Report <ArrowRightIcon />
@@ -759,12 +890,28 @@ function Footer() {
 
 /* ── App ───────────────────────────────────────────────────────── */
 export default function App() {
+  useEffect(() => {
+    if (!window.IntersectionObserver) return
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed')
+          observer.unobserve(e.target)
+        }
+      }),
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    )
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <Nav />
       <main>
         <Hero />
         <SocialProof />
+        <IntelligenceCloud />
         <WhoUsesInsyght />
         <HowItWorks />
         <ReportSection />
