@@ -190,16 +190,17 @@ function Hero() {
         <div className="hero-left">
           <div className="hero-badge" aria-label="Product category">
             <span className="badge-dot" aria-hidden="true" />
-            Nigeria&apos;s Business Intelligence Layer
+            Nigeria&apos;s Company Intelligence Platform
           </div>
 
           <h1 className="hero-headline">
-            Know who you&apos;re doing<br />business with.
+            Know who you&apos;re doing business with.
           </h1>
 
           <p className="hero-subheadline">
-            Insyght delivers a complete intelligence report on any CAC-registered
-            Nigerian company in under 2 minutes. Stop guessing. Start knowing.
+            Insyght delivers verified intelligence on any CAC-registered Nigerian company —
+            directors, shareholders, risk scores, news mentions, and digital footprint —
+            as a branded PDF report in under 2 minutes.
           </p>
 
           <div className="hero-buttons">
@@ -213,7 +214,7 @@ function Hero() {
           </div>
 
           <div className="trust-row" role="list">
-            {['CAC Verified Data', 'AI-Powered Analysis', 'Instant PDF Report'].map(label => (
+            {['CAC-Verified Data', 'Risk-Scored Reports', 'PDF in Under 2 Minutes'].map(label => (
               <div key={label} className="trust-item" role="listitem">
                 <span style={{ color: 'var(--success)', display: 'flex' }}>
                   <CheckIcon size={14} />
@@ -306,7 +307,7 @@ function SocialProof() {
   return (
     <section className="proof-section" aria-label="Trusted by">
       <p className="proof-label">
-        Trusted by procurement teams, law firms, and financial institutions
+        Trusted by Nigeria&apos;s procurement teams, law firms &amp; financial institutions
       </p>
       <div className="marquee-outer" aria-hidden="true">
         <div className="marquee-track">
@@ -328,19 +329,19 @@ const STEPS = [
     num: '01',
     icon: <SearchIcon />,
     title: 'Search',
-    desc: 'Enter any company name or CAC RC number. Our system finds them instantly from the official CAC database.',
+    desc: 'Enter any company name or CAC RC number. Our system instantly pulls live data from the official CAC database and cross-references multiple public sources for accuracy.',
   },
   {
     num: '02',
     icon: <CreditCardIcon />,
     title: 'Pay',
-    desc: 'One secure payment of ₦10,000 via Paystack. No subscription. No hidden fees. Pay only when you need a report.',
+    desc: 'One secure payment of ₦10,000 via Paystack. No subscription. No hidden fees. No recurring charges. Pay only for the reports your team needs.',
   },
   {
     num: '03',
     icon: <ZapIcon />,
     title: 'Know',
-    desc: 'Download your complete intelligence report as a branded PDF in under 2 minutes. Share with your team.',
+    desc: 'Your branded PDF intelligence report is ready in under 2 minutes — fully formatted, shareable, and built for professional due diligence workflows.',
   },
 ]
 
@@ -348,7 +349,7 @@ function HowItWorks() {
   return (
     <section id="how-it-works" className="section">
       <div className="section-inner">
-        <h2 className="section-title">Three steps to complete due diligence</h2>
+        <h2 className="section-title">Company due diligence in three simple steps</h2>
         <div className="steps-grid" role="list">
           {STEPS.map(step => (
             <article key={step.num} className="step-card" role="listitem">
@@ -400,27 +401,27 @@ const FEATURE_ROWS = [
   {
     icon: <BuildingIcon />,
     title: 'Company Identity',
-    desc: 'Full CAC registration details, address history, company type, and current legal status verified against the official database.',
+    desc: 'Full CAC registration details, registered address, company type, incorporation date, and current legal status — verified directly against the official CAC database.',
   },
   {
     icon: <UsersIcon />,
     title: 'Directors & Ownership',
-    desc: 'Named directors, shareholding percentages, appointment dates, and cross-referenced adverse records.',
+    desc: 'Named directors, shareholding percentages, appointment dates, and nationalities — cross-referenced for adverse records and PEP (Politically Exposed Person) flags.',
   },
   {
     icon: <GlobeIcon />,
     title: 'Digital Presence',
-    desc: 'Website health, domain age, social media footprint, and online credibility signals.',
+    desc: 'Website health and SSL status, domain age, social media footprint, and online credibility signals that reveal how established (or not) a business actually is.',
   },
   {
     icon: <NewsIcon />,
-    title: 'News & Mentions',
-    desc: 'Aggregated mentions across Nigerian media — Businessday, Punch, Vanguard, and more — flagged by sentiment.',
+    title: 'News & Media Mentions',
+    desc: 'Aggregated mentions across Nigerian media — Businessday, Punch, Vanguard, The Cable, and more — automatically flagged by sentiment for quick scanning.',
   },
   {
     icon: <BrainIcon />,
-    title: 'AI Risk Summary',
-    desc: 'A plain-English risk assessment powered by AI, synthesising all data points into an actionable risk score.',
+    title: 'AI Risk Summary & Score',
+    desc: 'A plain-English risk assessment synthesising all data points into an actionable risk score (0–100). Know the headline risk before you read the full report.',
   },
 ]
 
@@ -428,7 +429,7 @@ function ReportSection() {
   return (
     <section id="report" className="section report-section-bg" aria-label="What's inside a report">
       <div className="section-inner">
-        <h2 className="section-title left">Everything you need to make an informed decision</h2>
+        <h2 className="section-title left">Everything inside every Insyght company report</h2>
         <div className="report-grid">
           {/* Left — mock report */}
           <div className="mock-report" role="img" aria-label="Sample intelligence report preview">
@@ -494,18 +495,18 @@ function ReportSection() {
 
 /* ── Pricing ──────────────────────────────────────────────────── */
 const SINGLE_FEATURES = [
-  'Full CAC verification',
-  'Directors and shareholders',
-  'Web and social presence',
-  'News and mentions',
-  'AI risk summary',
-  'PDF download',
+  'Full CAC registration verification',
+  'Directors & shareholder breakdown',
+  'Digital presence & web health check',
+  'Nigerian media news mentions',
+  'AI risk score & plain-English summary',
+  'Branded PDF download',
 ]
 
 const TEAM_FEATURES = [
   '20 reports per month',
-  'Team dashboard',
-  'Monitoring alerts',
+  'Team dashboard & shared history',
+  'Company monitoring alerts',
   'Priority support',
   'White-label PDF option',
 ]
@@ -542,19 +543,19 @@ function Pricing() {
   return (
     <section id="pricing" className="section">
       <div className="section-inner">
-        <h2 className="section-title">Simple, transparent pricing</h2>
+        <h2 className="section-title">Simple pricing. No subscription required.</h2>
         <div className="pricing-grid">
           <PricingCard
             plan="Single Report"
             price="₦10,000"
-            desc="One complete report, no commitment."
+            desc="One complete intelligence report on any Nigerian company. Pay once, download instantly."
             features={SINGLE_FEATURES}
-            cta="Get Started"
+            cta="Get a Report"
           />
           <PricingCard
             plan="Five Reports"
             price="₦40,000"
-            desc="Run five searches at a better rate."
+            desc="Run five full company checks at a significantly better rate. Ideal for active deal pipelines."
             features={SINGLE_FEATURES}
             cta="Get Started"
             featured
@@ -565,7 +566,7 @@ function Pricing() {
             plan="Team Plan"
             price="₦150,000"
             priceNote="/month"
-            desc="Built for law firms and procurement teams."
+            desc="Built for law firms, banks, and procurement teams that need ongoing company intelligence."
             features={TEAM_FEATURES}
             cta="Contact Sales"
             ctaStyle="outline"
@@ -582,9 +583,9 @@ function FinalCTA() {
     <section className="cta-section" aria-labelledby="cta-headline">
       <div className="cta-inner">
         <h2 className="cta-headline" id="cta-headline">
-          The cost of not knowing is higher than ₦10,000.
+          Don&apos;t sign until you&apos;ve run an Insyght check.
         </h2>
-        <p className="cta-sub">Run your first company search today.</p>
+        <p className="cta-sub">Verify any Nigerian company in under 2 minutes. No subscription required.</p>
         <a href="#hero" className="btn-primary" style={{ fontSize: '1.0625rem', padding: '1rem 2rem' }}
           onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}>
           Get a Report <ArrowRightIcon />
@@ -604,7 +605,7 @@ function Footer() {
             Ins<span className="y-wrap">y<span className="y-dot" aria-hidden="true" /></span>ght
           </a>
           <p className="footer-tagline">
-            Nigeria&apos;s business intelligence platform. Know before you commit.
+            Nigeria&apos;s company intelligence platform. Due diligence in minutes, not days.
           </p>
         </div>
 
