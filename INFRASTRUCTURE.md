@@ -107,7 +107,7 @@ launch, and operate Insyght.
 
 ### Do this week
 - [ ] Railway — create project, connect GitHub repo
-- [ ] SerpAPI — create account and get API key
+- [x] SerpAPI — account created, API key secured
 - [ ] Anthropic Console — create account and get Claude API key
 - [ ] Twitter/X, LinkedIn, Instagram, Facebook — secure all handles
 - [ ] Google Analytics and Google Search Console — set up and link to domain
