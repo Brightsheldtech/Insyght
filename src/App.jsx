@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 
 /* ── Inline SVG icons ────────────────────────────────────────── */
 const SearchIcon = () => (
@@ -145,6 +146,29 @@ const INTEL_TAGS = [
   { text: 'Media Scan',          x: 19, y: 76, anim: 'float-c', dur: 9,   delay: -5.5  },
 ]
 
+/* ── Animation config ─────────────────────────────────────────── */
+const ease = [0.4, 0, 0.2, 1]
+
+const FU = {
+  hidden:  { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } },
+}
+const FL = {
+  hidden:  { opacity: 0, x: -22 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease } },
+}
+const FR = {
+  hidden:  { opacity: 0, x: 22 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease } },
+}
+const SCALE_FU = {
+  hidden:  { opacity: 0, y: 24, scale: 0.97 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease } },
+}
+const GRID = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }
+const FLOW = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }
+const VP   = { once: true, margin: '-60px' }
+
 /* ── Navigation ──────────────────────────────────────────────── */
 function Nav() {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -244,24 +268,45 @@ function Hero() {
     <section id="hero" className="hero">
       <div className="hero-inner">
         <div className="hero-left">
-          <div className="hero-badge" aria-label="Product category">
+          <motion.div
+            className="hero-badge"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05, ease }}
+            aria-label="Product category"
+          >
             <span className="badge-dot" aria-hidden="true" />
             Nigerian Company Intelligence
-          </div>
+          </motion.div>
 
-          <h1 className="hero-headline">
+          <motion.h1
+            className="hero-headline"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.18, ease }}
+          >
             Know who you&apos;re doing business with.
-          </h1>
+          </motion.h1>
 
-          <p className="hero-subheadline">
+          <motion.p
+            className="hero-subheadline"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.32, ease }}
+          >
             Before you sign a contract or release payment to any Nigerian company, run an
             Insyght check. Every report covers CAC registration, directors and shareholders,
             director BVN and NIN identity verification, PEP and sanctions screening, FIRS
             tax compliance, sector licensing from CBN to NAFDAC to SEC, digital footprint,
             media mentions, and an AI risk score. One PDF. Under 2 minutes.
-          </p>
+          </motion.p>
 
-          <div className="hero-buttons">
+          <motion.div
+            className="hero-buttons"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.46, ease }}
+          >
             <a href="#hero" className="btn-primary">
               Run a Free Search <ArrowRightIcon />
             </a>
@@ -272,9 +317,15 @@ function Hero() {
             >
               See Sample Report
             </a>
-          </div>
+          </motion.div>
 
-          <div className="trust-row" role="list">
+          <motion.div
+            className="trust-row"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.60, ease }}
+            role="list"
+          >
             {['CAC to SEC Verified', '13 Intelligence Checks', 'PDF in Under 2 Minutes'].map(label => (
               <div key={label} className="trust-item" role="listitem">
                 <span style={{ color: 'var(--success)', display: 'flex' }}>
@@ -283,10 +334,15 @@ function Hero() {
                 {label}
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        <div className="hero-right">
+        <motion.div
+          className="hero-right"
+          initial={{ opacity: 0, x: 32 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.75, delay: 0.28, ease }}
+        >
           <div className="hero-card-wrap">
             <div className="hero-card-glow" aria-hidden="true" />
             <div className="hero-card">
@@ -355,7 +411,7 @@ function Hero() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -365,9 +421,15 @@ function Hero() {
 function SocialProof() {
   return (
     <section className="proof-section" aria-label="Trusted by">
-      <p className="proof-label">
+      <motion.p
+        className="proof-label"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={VP}
+        transition={{ duration: 0.7 }}
+      >
         Used by procurement officers, legal practitioners and financial analysts across Nigeria
-      </p>
+      </motion.p>
       <div className="marquee-outer" aria-hidden="true">
         <div className="marquee-track">
           {[...MARQUEE_NAMES, ...MARQUEE_NAMES].map((name, i) => (
@@ -389,12 +451,24 @@ function IntelligenceCloud() {
       {/* Mobile: pill grid + text */}
       <div className="intel-cloud-mobile">
         <div className="intel-inner-mobile">
-          <h2 className="intel-cloud-headline">
+          <motion.h2
+            className="intel-cloud-headline"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VP}
+            transition={{ duration: 0.6, ease }}
+          >
             13 intelligence checks.<br />One report. Under 2 minutes.
-          </h2>
-          <p className="intel-cloud-sub">
+          </motion.h2>
+          <motion.p
+            className="intel-cloud-sub"
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VP}
+            transition={{ duration: 0.6, delay: 0.14, ease }}
+          >
             Every Insyght report runs all of these automatically, against official Nigerian government sources.
-          </p>
+          </motion.p>
           <div className="intel-tag-grid" aria-hidden="true">
             {INTEL_TAGS.map((tag, i) => (
               <span
@@ -470,14 +544,29 @@ function WhoUsesInsyght() {
   return (
     <section id="who-uses" className="section who-section">
       <div className="section-inner">
-        <h2 className="section-title reveal">Built for professionals who cannot afford to be wrong</h2>
-        <div className="persona-grid" role="list">
-          {PERSONAS.map((p, i) => (
-            <article
+        <motion.h2
+          className="section-title"
+          variants={FU}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          Built for professionals who cannot afford to be wrong
+        </motion.h2>
+        <motion.div
+          className="persona-grid"
+          variants={GRID}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          role="list"
+        >
+          {PERSONAS.map(p => (
+            <motion.article
               key={p.role}
-              className="persona-card reveal"
+              className="persona-card"
+              variants={FU}
               role="listitem"
-              style={{ transitionDelay: `${i * 0.1}s` }}
             >
               <div className="persona-icon-wrap" aria-hidden="true">
                 {p.icon}
@@ -485,9 +574,9 @@ function WhoUsesInsyght() {
               <div className="persona-role">{p.role}</div>
               <p className="persona-headline">{p.headline}</p>
               <p className="persona-body">{p.body}</p>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -519,14 +608,29 @@ function HowItWorks() {
   return (
     <section id="how-it-works" className="section">
       <div className="section-inner">
-        <h2 className="section-title reveal">Company due diligence in three simple steps</h2>
-        <div className="steps-grid" role="list">
-          {STEPS.map((step, i) => (
-            <article
+        <motion.h2
+          className="section-title"
+          variants={FU}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          Company due diligence in three simple steps
+        </motion.h2>
+        <motion.div
+          className="steps-grid"
+          variants={GRID}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          role="list"
+        >
+          {STEPS.map(step => (
+            <motion.article
               key={step.num}
-              className="step-card reveal"
+              className="step-card"
+              variants={FU}
               role="listitem"
-              style={{ transitionDelay: `${i * 0.12}s` }}
             >
               <div className="step-number" aria-hidden="true">STEP {step.num}</div>
               <div className="step-icon-wrap" aria-hidden="true">
@@ -534,9 +638,9 @@ function HowItWorks() {
               </div>
               <h3 className="step-title">{step.title}</h3>
               <p className="step-desc">{step.desc}</p>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -559,19 +663,37 @@ function VerificationFlow() {
   return (
     <section className="flow-section" aria-label="Verification process">
       <div className="flow-inner">
-        <div className="flow-text reveal">
-          <h2 className="flow-title">
+        <motion.div
+          className="flow-text"
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          <motion.h2 className="flow-title" variants={FU}>
             Every check runs automatically, in the right order.
-          </h2>
-          <p className="flow-sub">
+          </motion.h2>
+          <motion.p className="flow-sub" variants={FU}>
             The moment payment is confirmed, Insyght runs all 13 verification
             steps in sequence — CAC, director identity, tax, PEP screening,
             sector licensing, digital presence, and AI analysis. No manual steps, no waiting.
-          </p>
-        </div>
-        <div className="flow-diagram" aria-label="Verification steps">
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="flow-diagram"
+          variants={FLOW}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          aria-label="Verification steps"
+        >
           {FLOW_NODES.map((node, i) => (
-            <div key={i} className={`flow-node flow-node-${node.type}`} style={{ animationDelay: `${i * 0.1}s` }}>
+            <motion.div
+              key={i}
+              className={`flow-node flow-node-${node.type}`}
+              variants={FR}
+            >
               <div className="flow-node-dot" aria-hidden="true" />
               <div className="flow-node-content">
                 <span className="flow-node-label">{node.label}</span>
@@ -587,9 +709,9 @@ function VerificationFlow() {
                 )}
               </div>
               {i < FLOW_NODES.length - 1 && <div className="flow-connector" aria-hidden="true" />}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -651,14 +773,29 @@ function UseCaseCards() {
   return (
     <section className="usecases-section">
       <div className="section-inner">
-        <h2 className="section-title reveal">One platform. Every use case.</h2>
-        <div className="usecases-grid" role="list">
-          {USE_CASES.map((uc, i) => (
-            <article
+        <motion.h2
+          className="section-title"
+          variants={FU}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          One platform. Every use case.
+        </motion.h2>
+        <motion.div
+          className="usecases-grid"
+          variants={GRID}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          role="list"
+        >
+          {USE_CASES.map(uc => (
+            <motion.article
               key={uc.headline}
-              className="usecase-card reveal"
+              className="usecase-card"
+              variants={SCALE_FU}
               role="listitem"
-              style={{ transitionDelay: `${i * 0.1}s` }}
             >
               <div
                 className="usecase-icon-circle"
@@ -669,9 +806,9 @@ function UseCaseCards() {
               </div>
               <h3 className="usecase-headline">{uc.headline}</h3>
               <p className="usecase-body">{uc.body}</p>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -754,9 +891,25 @@ function ReportSection() {
   return (
     <section id="report" className="section report-section-bg" aria-label="What's inside a report">
       <div className="section-inner">
-        <h2 className="section-title left reveal">Everything inside every Insyght report</h2>
+        <motion.h2
+          className="section-title left"
+          variants={FU}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          Everything inside every Insyght report
+        </motion.h2>
         <div className="report-grid">
-          <div className="mock-report reveal" role="img" aria-label="Sample intelligence report preview">
+          <motion.div
+            className="mock-report"
+            variants={FL}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VP}
+            role="img"
+            aria-label="Sample intelligence report preview"
+          >
             <div className="mock-report-header">
               <div>
                 <div className="mock-report-title">Zenith Trading Ltd</div>
@@ -798,15 +951,22 @@ function ReportSection() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="feature-rows" role="list">
-            {FEATURE_ROWS.map((row, i) => (
-              <div
+          <motion.div
+            className="feature-rows"
+            variants={GRID}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VP}
+            role="list"
+          >
+            {FEATURE_ROWS.map(row => (
+              <motion.div
                 key={row.title}
-                className="feature-row reveal"
+                className="feature-row"
+                variants={FU}
                 role="listitem"
-                style={{ transitionDelay: `${i * 0.08}s` }}
               >
                 <div className="feature-icon-wrap" aria-hidden="true">
                   {row.icon}
@@ -815,9 +975,9 @@ function ReportSection() {
                   <h3>{row.title}</h3>
                   <p>{row.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -848,11 +1008,11 @@ const TEAM_FEATURES = [
   'White label PDF option',
 ]
 
-function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null, revealDelay = 0 }) {
+function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null }) {
   return (
-    <article
-      className={`pricing-card${featured ? ' featured' : ''} reveal`}
-      style={{ transitionDelay: `${revealDelay}s` }}
+    <motion.article
+      className={`pricing-card${featured ? ' featured' : ''}`}
+      variants={FU}
     >
       {popular && <div className="popular-badge" aria-label="Most popular plan">{popular}</div>}
       {saveBadge && <div className="save-badge" aria-label={saveBadge}>{saveBadge}</div>}
@@ -876,7 +1036,7 @@ function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyl
         ? <a href="#hero" className="btn-primary-full">{cta}</a>
         : <a href="mailto:hello@insyght.io" className="btn-outline-full">{cta}</a>
       }
-    </article>
+    </motion.article>
   )
 }
 
@@ -884,8 +1044,22 @@ function Pricing() {
   return (
     <section id="pricing" className="section">
       <div className="section-inner">
-        <h2 className="section-title reveal">Simple pricing. No subscription required.</h2>
-        <div className="pricing-grid pricing-grid-4">
+        <motion.h2
+          className="section-title"
+          variants={FU}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          Simple pricing. No subscription required.
+        </motion.h2>
+        <motion.div
+          className="pricing-grid pricing-grid-4"
+          variants={GRID}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
           <PricingCard
             plan="Single Report"
             price="₦10,000"
@@ -893,7 +1067,6 @@ function Pricing() {
             desc="One full intelligence report on any CAC-registered Nigerian company. Pay once, download immediately."
             features={REPORT_FEATURES}
             cta="Get a Report"
-            revealDelay={0}
           />
           <PricingCard
             plan="Five Reports"
@@ -903,7 +1076,6 @@ function Pricing() {
             features={REPORT_FEATURES}
             cta="Get Started"
             saveBadge="Save ₦10,000"
-            revealDelay={0.1}
           />
           <PricingCard
             plan="Ten Reports"
@@ -915,7 +1087,6 @@ function Pricing() {
             featured
             popular="BEST VALUE"
             saveBadge="Save ₦25,000"
-            revealDelay={0.2}
           />
           <PricingCard
             plan="Team Plan"
@@ -925,13 +1096,18 @@ function Pricing() {
             features={TEAM_FEATURES}
             cta="Contact Sales"
             ctaStyle="outline"
-            revealDelay={0.3}
           />
-        </div>
-        <p className="pricing-note">
+        </motion.div>
+        <motion.p
+          className="pricing-note"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={VP}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           Need more than 50 reports per month or API access?{' '}
           <a href="mailto:hello@insyght.io">Contact us for Enterprise pricing.</a>
-        </p>
+        </motion.p>
       </div>
     </section>
   )
@@ -942,22 +1118,29 @@ function FinalCTA() {
   return (
     <section className="cta-section" aria-labelledby="cta-headline">
       <div className="cta-noise" aria-hidden="true" />
-      <div className="cta-inner">
-        <h2 className="cta-headline" id="cta-headline">
+      <motion.div
+        className="cta-inner"
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.16 } } }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={VP}
+      >
+        <motion.h2 className="cta-headline" id="cta-headline" variants={FU}>
           Don&apos;t sign until you&apos;ve run an Insyght check.
-        </h2>
-        <p className="cta-sub">
+        </motion.h2>
+        <motion.p className="cta-sub" variants={FU}>
           Search any CAC-registered Nigerian company and get your full intelligence report
           in under 2 minutes. No subscription, no commitment.
-        </p>
-        <a
+        </motion.p>
+        <motion.a
           href="#hero"
           className="btn-primary cta-btn"
+          variants={FU}
           onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}
         >
           Get a Report <ArrowRightIcon />
-        </a>
-      </div>
+        </motion.a>
+      </motion.div>
     </section>
   )
 }
@@ -1037,21 +1220,6 @@ function Footer() {
 
 /* ── App ───────────────────────────────────────────────────────── */
 export default function App() {
-  useEffect(() => {
-    if (!window.IntersectionObserver) return
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('revealed')
-          observer.unobserve(e.target)
-        }
-      }),
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-    )
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <>
       <Nav />
