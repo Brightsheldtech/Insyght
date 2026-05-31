@@ -281,17 +281,6 @@ function Hero() {
           </div>
         </div>
 
-        <div className="hero-bg-pattern" aria-hidden="true">
-          <svg width="100%" height="100%" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M -200 800 Q 600 350 1400 -50"  stroke="rgba(45,106,79,0.07)" strokeWidth="1.2"/>
-            <path d="M -100 950 Q 700 500 1500 100"  stroke="rgba(45,106,79,0.05)" strokeWidth="1.2"/>
-            <path d="M -300 680 Q 500 230 1300 -150" stroke="rgba(45,106,79,0.05)" strokeWidth="1.2"/>
-            <path d="M 0 1050 Q 800 600 1600 200"   stroke="rgba(45,106,79,0.04)" strokeWidth="1.2"/>
-            <path d="M 100 1180 Q 900 730 1700 330"  stroke="rgba(45,106,79,0.03)" strokeWidth="1.2"/>
-            <path d="M 500 -100 Q 900 200 1300 600"  stroke="rgba(45,106,79,0.04)" strokeWidth="1.2"/>
-          </svg>
-        </div>
-
         <div className="hero-right">
           <div className="hero-card-wrap">
             <div className="hero-card-glow" aria-hidden="true" />
