@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 /* ── Inline SVG icons ────────────────────────────────────────── */
 const SearchIcon = () => (
@@ -114,6 +115,26 @@ const LinkedInIcon = () => (
   </svg>
 )
 
+/* ── Animation utilities ─────────────────────────────────────── */
+const EASE_OUT = [0.22, 1, 0.36, 1]
+const SPRING   = { type: 'spring', stiffness: 340, damping: 26 }
+
+function FadeUp({ children, delay = 0, className = '' }) {
+  const ref   = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-48px 0px' })
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.55, delay, ease: EASE_OUT }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 /* ── Marquee data ─────────────────────────────────────────────── */
 const MARQUEE_NAMES = [
   'Alpha Procurement Ltd', 'Okafor & Partners', 'First Alliance Capital', 'Greenfield Properties',
@@ -189,9 +210,7 @@ function Nav() {
             aria-expanded={drawerOpen}
             aria-controls="mobile-drawer"
           >
-            <span />
-            <span />
-            <span />
+            <span /><span /><span />
           </button>
         </div>
       </nav>
@@ -205,9 +224,9 @@ function Nav() {
       >
         <div className="drawer-overlay" onClick={closeDrawer} aria-hidden="true" />
         <div className="drawer-panel">
-          <a href="#who-uses" onClick={e => handleNavLink(e, 'who-uses')}>Who it&apos;s for</a>
+          <a href="#who-uses"   onClick={e => handleNavLink(e, 'who-uses')}>Who it&apos;s for</a>
           <a href="#how-it-works" onClick={e => handleNavLink(e, 'how-it-works')}>How it works</a>
-          <a href="#pricing" onClick={e => handleNavLink(e, 'pricing')}>Pricing</a>
+          <a href="#pricing"    onClick={e => handleNavLink(e, 'pricing')}>Pricing</a>
           <a href="#hero" className="drawer-cta" onClick={e => handleNavLink(e, 'hero')}>Get a Report</a>
         </div>
       </div>
@@ -262,16 +281,23 @@ function Hero() {
           </p>
 
           <div className="hero-buttons">
-            <a href="#hero" className="btn-primary">
+            <motion.a
+              href="#hero"
+              className="btn-primary"
+              whileTap={{ scale: 0.96 }}
+              transition={SPRING}
+            >
               Run a Free Search <ArrowRightIcon />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="#report"
               className="btn-outline"
+              whileTap={{ scale: 0.96 }}
+              transition={SPRING}
               onClick={e => { e.preventDefault(); document.getElementById('report')?.scrollIntoView({ behavior: 'smooth' }) }}
             >
               See Sample Report
-            </a>
+            </motion.a>
           </div>
 
           <div className="trust-row" role="list">
@@ -361,6 +387,30 @@ function Hero() {
   )
 }
 
+/* ── Stats trust bar ──────────────────────────────────────────── */
+const STATS = [
+  { num: '13',     label: 'verification checks per report' },
+  { num: '< 2 min', label: 'average report delivery'       },
+  { num: '7+',     label: 'regulatory bodies covered'      },
+]
+
+function StatsSection() {
+  return (
+    <section className="stats-section" aria-label="Key metrics">
+      <div className="stats-inner">
+        {STATS.map((s, i) => (
+          <FadeUp key={s.label} delay={i * 0.1}>
+            <div className="stat-item">
+              <div className="stat-num">{s.num}</div>
+              <div className="stat-label">{s.label}</div>
+            </div>
+          </FadeUp>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 /* ── Social Proof Marquee ─────────────────────────────────────── */
 function SocialProof() {
   return (
@@ -386,7 +436,6 @@ function SocialProof() {
 function IntelligenceCloud() {
   return (
     <section className="intel-cloud-section" aria-label="Intelligence capabilities">
-      {/* Mobile: pill grid + text */}
       <div className="intel-cloud-mobile">
         <div className="intel-inner-mobile">
           <h2 className="intel-cloud-headline">
@@ -409,7 +458,6 @@ function IntelligenceCloud() {
         </div>
       </div>
 
-      {/* Desktop: floating scattered cloud */}
       <div className="intel-cloud-canvas" aria-hidden="true">
         {INTEL_TAGS.map(tag => (
           <span
@@ -470,22 +518,26 @@ function WhoUsesInsyght() {
   return (
     <section id="who-uses" className="section who-section">
       <div className="section-inner">
-        <h2 className="section-title reveal">Built for professionals who cannot afford to be wrong</h2>
+        <FadeUp>
+          <h2 className="section-title">Built for professionals who cannot afford to be wrong</h2>
+        </FadeUp>
         <div className="persona-grid" role="list">
           {PERSONAS.map((p, i) => (
-            <article
+            <motion.article
               key={p.role}
-              className="persona-card reveal"
+              className="persona-card"
               role="listitem"
-              style={{ transitionDelay: `${i * 0.1}s` }}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-48px 0px' }}
+              transition={{ duration: 0.5, delay: i * 0.09, ease: EASE_OUT }}
+              whileHover={{ y: -6, transition: SPRING }}
             >
-              <div className="persona-icon-wrap" aria-hidden="true">
-                {p.icon}
-              </div>
+              <div className="persona-icon-wrap" aria-hidden="true">{p.icon}</div>
               <div className="persona-role">{p.role}</div>
               <p className="persona-headline">{p.headline}</p>
               <p className="persona-body">{p.body}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>
@@ -519,22 +571,26 @@ function HowItWorks() {
   return (
     <section id="how-it-works" className="section">
       <div className="section-inner">
-        <h2 className="section-title reveal">Company due diligence in three simple steps</h2>
+        <FadeUp>
+          <h2 className="section-title">Company due diligence in three simple steps</h2>
+        </FadeUp>
         <div className="steps-grid" role="list">
           {STEPS.map((step, i) => (
-            <article
+            <motion.article
               key={step.num}
-              className="step-card reveal"
+              className="step-card"
               role="listitem"
-              style={{ transitionDelay: `${i * 0.12}s` }}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-48px 0px' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: EASE_OUT }}
+              whileHover={{ y: -6, transition: SPRING }}
             >
               <div className="step-number" aria-hidden="true">STEP {step.num}</div>
-              <div className="step-icon-wrap" aria-hidden="true">
-                {step.icon}
-              </div>
+              <div className="step-icon-wrap" aria-hidden="true">{step.icon}</div>
               <h3 className="step-title">{step.title}</h3>
               <p className="step-desc">{step.desc}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>
@@ -556,10 +612,13 @@ const FLOW_NODES = [
 ]
 
 function VerificationFlow() {
+  const diagramRef = useRef(null)
+  const diagramInView = useInView(diagramRef, { once: true, margin: '-60px 0px' })
+
   return (
     <section className="flow-section" aria-label="Verification process">
       <div className="flow-inner">
-        <div className="flow-text reveal">
+        <FadeUp className="flow-text">
           <h2 className="flow-title">
             Every check runs automatically, in the right order.
           </h2>
@@ -568,11 +627,17 @@ function VerificationFlow() {
             steps in sequence — CAC, director identity, tax, PEP screening,
             sector licensing, digital presence, and AI analysis. No manual steps, no waiting.
           </p>
-        </div>
-        <div className="flow-diagram" aria-label="Verification steps">
+        </FadeUp>
+
+        <div ref={diagramRef} className="flow-diagram" aria-label="Verification steps">
           {FLOW_NODES.map((node, i) => (
-            <div key={i} className={`flow-node flow-node-${node.type}`} style={{ animationDelay: `${i * 0.1}s` }}>
-              <div className="flow-node-dot" aria-hidden="true" />
+            <motion.div
+              key={i}
+              className={`flow-node flow-node-${node.type}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={diagramInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.45, delay: i * 0.07, ease: EASE_OUT }}
+            >
               <div className="flow-node-content">
                 <span className="flow-node-label">{node.label}</span>
                 {node.badge && (
@@ -587,7 +652,7 @@ function VerificationFlow() {
                 )}
               </div>
               {i < FLOW_NODES.length - 1 && <div className="flow-connector" aria-hidden="true" />}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -651,14 +716,20 @@ function UseCaseCards() {
   return (
     <section className="usecases-section">
       <div className="section-inner">
-        <h2 className="section-title reveal">One platform. Every use case.</h2>
+        <FadeUp>
+          <h2 className="section-title">One platform. Every use case.</h2>
+        </FadeUp>
         <div className="usecases-grid" role="list">
           {USE_CASES.map((uc, i) => (
-            <article
+            <motion.article
               key={uc.headline}
-              className="usecase-card reveal"
+              className="usecase-card"
               role="listitem"
-              style={{ transitionDelay: `${i * 0.1}s` }}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-48px 0px' }}
+              transition={{ duration: 0.5, delay: i * 0.09, ease: EASE_OUT }}
+              whileHover={{ y: -6, transition: SPRING }}
             >
               <div
                 className="usecase-icon-circle"
@@ -669,7 +740,7 @@ function UseCaseCards() {
               </div>
               <h3 className="usecase-headline">{uc.headline}</h3>
               <p className="usecase-body">{uc.body}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>
@@ -754,68 +825,67 @@ function ReportSection() {
   return (
     <section id="report" className="section report-section-bg" aria-label="What's inside a report">
       <div className="section-inner">
-        <h2 className="section-title left reveal">Everything inside every Insyght report</h2>
+        <FadeUp>
+          <h2 className="section-title left">Everything inside every Insyght report</h2>
+        </FadeUp>
         <div className="report-grid">
-          <div className="mock-report reveal" role="img" aria-label="Sample intelligence report preview">
-            <div className="mock-report-header">
-              <div>
-                <div className="mock-report-title">Zenith Trading Ltd</div>
-                <div className="mock-report-sub">RC 1087432 · Intelligence Report</div>
-              </div>
-              <span className="report-stamp">VERIFIED</span>
-            </div>
-            <div className="mock-report-body">
-              {REPORT_SECTIONS.map((sec, i) => (
-                <div
-                  key={sec.name}
-                  className={`report-sec${sec.isAI ? ' report-ai-section' : ''}`}
-                  style={{ animationDelay: `${i * 0.08}s` }}
-                >
-                  <div className="report-sec-header">
-                    <span className="report-sec-icon" aria-hidden="true">{sec.icon}</span>
-                    <span className="report-sec-name">{sec.name}</span>
-                  </div>
-                  {sec.isAI ? (
-                    <>
-                      <div className="badge-low-risk" style={{ marginLeft: '1.625rem', marginBottom: '0.5rem', display: 'inline-block' }}>LOW RISK</div>
-                      <div className="report-ai-wrap">
-                        <p className="report-ai-text">
-                          Zenith Trading Ltd is registered and active with the CAC. All annual
-                          returns are filed and current. Directors show no adverse flags in public
-                          records and the company holds a valid FIRS TIN. Domain age matches
-                          incorporation date. No litigation or adverse media found. Risk level: Low.
-                        </p>
-                        <div className="report-ai-fade" aria-hidden="true" />
-                      </div>
-                    </>
-                  ) : (
-                    <div className="report-data-line">
-                      {sec.data.split('\n').map((line, j) => (
-                        <div key={j}>{line}</div>
-                      ))}
-                    </div>
-                  )}
+          <FadeUp>
+            <div className="mock-report" role="img" aria-label="Sample intelligence report preview">
+              <div className="mock-report-header">
+                <div>
+                  <div className="mock-report-title">Zenith Trading Ltd</div>
+                  <div className="mock-report-sub">RC 1087432 · Intelligence Report</div>
                 </div>
-              ))}
+                <span className="report-stamp">VERIFIED</span>
+              </div>
+              <div className="mock-report-body">
+                {REPORT_SECTIONS.map((sec, i) => (
+                  <div
+                    key={sec.name}
+                    className={`report-sec${sec.isAI ? ' report-ai-section' : ''}`}
+                    style={{ animationDelay: `${i * 0.08}s` }}
+                  >
+                    <div className="report-sec-header">
+                      <span className="report-sec-icon" aria-hidden="true">{sec.icon}</span>
+                      <span className="report-sec-name">{sec.name}</span>
+                    </div>
+                    {sec.isAI ? (
+                      <>
+                        <div className="badge-low-risk" style={{ marginLeft: '1.625rem', marginBottom: '0.5rem', display: 'inline-block' }}>LOW RISK</div>
+                        <div className="report-ai-wrap">
+                          <p className="report-ai-text">
+                            Zenith Trading Ltd is registered and active with the CAC. All annual
+                            returns are filed and current. Directors show no adverse flags in public
+                            records and the company holds a valid FIRS TIN. Domain age matches
+                            incorporation date. No litigation or adverse media found. Risk level: Low.
+                          </p>
+                          <div className="report-ai-fade" aria-hidden="true" />
+                        </div>
+                      </>
+                    ) : (
+                      <div className="report-data-line">
+                        {sec.data.split('\n').map((line, j) => (
+                          <div key={j}>{line}</div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          </FadeUp>
 
           <div className="feature-rows" role="list">
             {FEATURE_ROWS.map((row, i) => (
-              <div
-                key={row.title}
-                className="feature-row reveal"
-                role="listitem"
-                style={{ transitionDelay: `${i * 0.08}s` }}
-              >
-                <div className="feature-icon-wrap" aria-hidden="true">
-                  {row.icon}
+              <FadeUp key={row.title} delay={i * 0.06}>
+                <div className="feature-row" role="listitem">
+                  <div className="feature-icon-wrap" aria-hidden="true">{row.icon}</div>
+                  <div className="feature-text">
+                    <h3>{row.title}</h3>
+                    <p>{row.desc}</p>
+                  </div>
                 </div>
-                <div className="feature-text">
-                  <h3>{row.title}</h3>
-                  <p>{row.desc}</p>
-                </div>
-              </div>
+              </FadeUp>
             ))}
           </div>
         </div>
@@ -849,13 +919,20 @@ const TEAM_FEATURES = [
 ]
 
 function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null, revealDelay = 0 }) {
+  const ref    = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-48px 0px' })
+
   return (
-    <article
-      className={`pricing-card${featured ? ' featured' : ''} reveal`}
-      style={{ transitionDelay: `${revealDelay}s` }}
+    <motion.article
+      ref={ref}
+      className={`pricing-card${featured ? ' featured' : ''}`}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: revealDelay, ease: EASE_OUT }}
+      whileHover={{ y: -6, transition: SPRING }}
     >
-      {popular && <div className="popular-badge" aria-label="Most popular plan">{popular}</div>}
-      {saveBadge && <div className="save-badge" aria-label={saveBadge}>{saveBadge}</div>}
+      {popular   && <div className="popular-badge" aria-label="Most popular plan">{popular}</div>}
+      {saveBadge && <div className="save-badge"    aria-label={saveBadge}>{saveBadge}</div>}
       <div className="plan-name">{plan}</div>
       <div className="plan-price">
         {price}
@@ -876,7 +953,7 @@ function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyl
         ? <a href="#hero" className="btn-primary-full">{cta}</a>
         : <a href="mailto:hello@insyght.io" className="btn-outline-full">{cta}</a>
       }
-    </article>
+    </motion.article>
   )
 }
 
@@ -884,7 +961,9 @@ function Pricing() {
   return (
     <section id="pricing" className="section">
       <div className="section-inner">
-        <h2 className="section-title reveal">Simple pricing. No subscription required.</h2>
+        <FadeUp>
+          <h2 className="section-title">Simple pricing. No subscription required.</h2>
+        </FadeUp>
         <div className="pricing-grid pricing-grid-4">
           <PricingCard
             plan="Single Report"
@@ -943,20 +1022,28 @@ function FinalCTA() {
     <section className="cta-section" aria-labelledby="cta-headline">
       <div className="cta-noise" aria-hidden="true" />
       <div className="cta-inner">
-        <h2 className="cta-headline" id="cta-headline">
-          Don&apos;t sign until you&apos;ve run an Insyght check.
-        </h2>
-        <p className="cta-sub">
-          Search any CAC-registered Nigerian company and get your full intelligence report
-          in under 2 minutes. No subscription, no commitment.
-        </p>
-        <a
-          href="#hero"
-          className="btn-primary cta-btn"
-          onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}
-        >
-          Get a Report <ArrowRightIcon />
-        </a>
+        <FadeUp>
+          <h2 className="cta-headline" id="cta-headline">
+            Don&apos;t sign until you&apos;ve run an Insyght check.
+          </h2>
+        </FadeUp>
+        <FadeUp delay={0.1}>
+          <p className="cta-sub">
+            Search any CAC-registered Nigerian company and get your full intelligence report
+            in under 2 minutes. No subscription, no commitment.
+          </p>
+        </FadeUp>
+        <FadeUp delay={0.2}>
+          <motion.a
+            href="#hero"
+            className="btn-primary cta-btn"
+            onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}
+            whileTap={{ scale: 0.97 }}
+            transition={SPRING}
+          >
+            Get a Report <ArrowRightIcon />
+          </motion.a>
+        </FadeUp>
       </div>
     </section>
   )
@@ -980,10 +1067,10 @@ function Footer() {
           <div className="footer-col">
             <h5>Product</h5>
             <ul role="list">
-              <li><a href="#who-uses" onClick={e => { e.preventDefault(); document.getElementById('who-uses')?.scrollIntoView({ behavior: 'smooth' }) }}>Who it&apos;s for</a></li>
+              <li><a href="#who-uses"    onClick={e => { e.preventDefault(); document.getElementById('who-uses')?.scrollIntoView({ behavior: 'smooth' }) }}>Who it&apos;s for</a></li>
               <li><a href="#how-it-works" onClick={e => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }) }}>How it works</a></li>
-              <li><a href="#report" onClick={e => { e.preventDefault(); document.getElementById('report')?.scrollIntoView({ behavior: 'smooth' }) }}>Sample Report</a></li>
-              <li><a href="#pricing" onClick={e => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }}>Pricing</a></li>
+              <li><a href="#report"      onClick={e => { e.preventDefault(); document.getElementById('report')?.scrollIntoView({ behavior: 'smooth' }) }}>Sample Report</a></li>
+              <li><a href="#pricing"     onClick={e => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }}>Pricing</a></li>
             </ul>
           </div>
 
@@ -1037,26 +1124,12 @@ function Footer() {
 
 /* ── App ───────────────────────────────────────────────────────── */
 export default function App() {
-  useEffect(() => {
-    if (!window.IntersectionObserver) return
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('revealed')
-          observer.unobserve(e.target)
-        }
-      }),
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-    )
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <>
       <Nav />
       <main>
         <Hero />
+        <StatsSection />
         <SocialProof />
         <IntelligenceCloud />
         <WhoUsesInsyght />
