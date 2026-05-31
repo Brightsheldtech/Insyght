@@ -127,15 +127,19 @@ const INTEL_TAGS = [
   { text: 'CAC Verification',    x: 2,  y: 8,  anim: 'float-a', dur: 7,   delay: 0,    accent: true },
   { text: 'Director Checks',     x: 36, y: 3,  anim: 'float-b', dur: 9,   delay: -3    },
   { text: 'FIRS TIN',            x: 68, y: 8,  anim: 'float-c', dur: 6,   delay: -1.5, accent: true },
+  { text: 'BVN Verification',    x: 44, y: 13, anim: 'float-d', dur: 8,   delay: -4,   accent: true },
   { text: 'Shareholder Lookup',  x: 74, y: 16, anim: 'float-d', dur: 11,  delay: -5    },
   { text: 'NAICOM Check',        x: 13, y: 17, anim: 'float-b', dur: 8,   delay: -2.8  },
   { text: 'NCC Licence',         x: 56, y: 1,  anim: 'float-a', dur: 8.5, delay: -7    },
   { text: 'SEC Registration',    x: 1,  y: 42, anim: 'float-c', dur: 8,   delay: -2.2  },
+  { text: 'PEP Screening',       x: 1,  y: 57, anim: 'float-a', dur: 9,   delay: -1.8, accent: true },
   { text: 'CBN Compliance',      x: 74, y: 37, anim: 'float-d', dur: 10,  delay: -4    },
+  { text: 'NIN Check',           x: 80, y: 50, anim: 'float-b', dur: 7.5, delay: -6.5  },
   { text: 'Annual Returns',      x: 2,  y: 68, anim: 'float-a', dur: 7.5, delay: -1    },
   { text: 'NAFDAC Licence',      x: 71, y: 60, anim: 'float-b', dur: 9.5, delay: -6    },
   { text: 'SCUML Check',         x: 4,  y: 83, anim: 'float-c', dur: 8,   delay: -3.5  },
   { text: 'KYB Compliance',      x: 29, y: 86, anim: 'float-d', dur: 7,   delay: -2,   accent: true },
+  { text: 'Sanctions Check',     x: 43, y: 93, anim: 'float-a', dur: 10,  delay: -5.2  },
   { text: 'Domain Intelligence', x: 55, y: 81, anim: 'float-a', dur: 11,  delay: -4.5  },
   { text: 'AI Risk Score',       x: 72, y: 78, anim: 'float-b', dur: 6.5, delay: -0.8, accent: true },
   { text: 'Media Scan',          x: 19, y: 76, anim: 'float-c', dur: 9,   delay: -5.5  },
@@ -252,8 +256,9 @@ function Hero() {
           <p className="hero-subheadline">
             Before you sign a contract or release payment to any Nigerian company, run an
             Insyght check. Every report covers CAC registration, directors and shareholders,
-            FIRS tax compliance, sector licensing from CBN to NAFDAC to SEC, digital
-            footprint, media mentions, and an AI risk score. One PDF. Under 2 minutes.
+            director BVN and NIN identity verification, PEP and sanctions screening, FIRS
+            tax compliance, sector licensing from CBN to NAFDAC to SEC, digital footprint,
+            media mentions, and an AI risk score. One PDF. Under 2 minutes.
           </p>
 
           <div className="hero-buttons">
@@ -270,7 +275,7 @@ function Hero() {
           </div>
 
           <div className="trust-row" role="list">
-            {['CAC to SEC Verified', '11 Intelligence Checks', 'PDF in Under 2 Minutes'].map(label => (
+            {['CAC to SEC Verified', '13 Intelligence Checks', 'PDF in Under 2 Minutes'].map(label => (
               <div key={label} className="trust-item" role="listitem">
                 <span style={{ color: 'var(--success)', display: 'flex' }}>
                   <CheckIcon size={14} />
@@ -385,7 +390,7 @@ function IntelligenceCloud() {
       <div className="intel-cloud-mobile">
         <div className="intel-inner-mobile">
           <h2 className="intel-cloud-headline">
-            11 intelligence checks.<br />One report. Under 2 minutes.
+            13 intelligence checks.<br />One report. Under 2 minutes.
           </h2>
           <p className="intel-cloud-sub">
             Every Insyght report runs all of these automatically, against official Nigerian government sources.
@@ -422,7 +427,7 @@ function IntelligenceCloud() {
         ))}
         <div className="intel-cloud-center">
           <h2 className="intel-cloud-headline">
-            11 intelligence checks.<br />One report. Under 2 minutes.
+            13 intelligence checks.<br />One report. Under 2 minutes.
           </h2>
           <p className="intel-cloud-sub">
             Every Insyght report runs all of these automatically, against official Nigerian government sources.
@@ -451,7 +456,7 @@ const PERSONAS = [
     icon: <CreditCardIcon />,
     role: 'Banks and Fintechs',
     headline: "The CBN's 2026 KYB mandate is not optional.",
-    body: 'CBN\'s mandatory KYB requirements make business verification a regulatory obligation. Insyght plugs directly into your merchant onboarding and SME lending workflow as a clean, documented check.',
+    body: 'Insyght covers the full CBN KYB scope: CAC status, directors, BVN and NIN identity checks for every named director, PEP and sanctions screening, and sector licensing. Every verification is documented and downloadable.',
   },
   {
     icon: <ShieldIcon />,
@@ -500,7 +505,7 @@ const STEPS = [
     num: '02',
     icon: <CreditCardIcon />,
     title: 'Pay',
-    desc: 'Pay ₦10,000 securely via Flutterwave. No subscriptions, no hidden fees, no recurring charges. Each payment gives you one complete 11-section intelligence report.',
+    desc: 'Pay ₦10,000 securely via Flutterwave. No subscriptions, no hidden fees, no recurring charges. Each payment gives you one complete 13-check intelligence report.',
   },
   {
     num: '03',
@@ -540,12 +545,14 @@ function HowItWorks() {
 /* ── Verification Flow ───────────────────────────────────────── */
 const FLOW_NODES = [
   { label: 'Company name or RC number entered',       type: 'start'  },
-  { label: 'CAC registration status verified',        type: 'check',     badge: 'ACTIVE'           },
+  { label: 'CAC registration status verified',        type: 'check',  badge: 'ACTIVE'           },
   { label: 'Directors and ownership cross referenced',type: 'check'  },
+  { label: 'Director BVN and NIN identity verified',  type: 'check'  },
   { label: 'FIRS TIN and annual returns checked',     type: 'check'  },
-  { label: 'Sector licensing confirmed',              type: 'multi',     tags: ['CBN', 'NAFDAC', 'SEC', 'SCUML'] },
+  { label: 'PEP and sanctions screening completed',   type: 'check',  badge: 'CLEAR'            },
+  { label: 'Sector licensing confirmed',              type: 'multi',  tags: ['CBN', 'NAFDAC', 'SEC', 'SCUML'] },
   { label: 'Domain age and media scan completed',     type: 'check'  },
-  { label: 'AI risk score calculated',                type: 'output',    badge: 'LOW RISK · 18/100' },
+  { label: 'AI risk score calculated',                type: 'output', badge: 'LOW RISK · 18/100' },
 ]
 
 function VerificationFlow() {
@@ -557,9 +564,9 @@ function VerificationFlow() {
             Every check runs automatically, in the right order.
           </h2>
           <p className="flow-sub">
-            The moment payment is confirmed, Insyght runs all 11 verification
-            steps in sequence — CAC, tax, sector licensing, digital presence,
-            and AI analysis. No manual steps, no waiting.
+            The moment payment is confirmed, Insyght runs all 13 verification
+            steps in sequence — CAC, director identity, tax, PEP screening,
+            sector licensing, digital presence, and AI analysis. No manual steps, no waiting.
           </p>
         </div>
         <div className="flow-diagram" aria-label="Verification steps">
@@ -612,7 +619,7 @@ const USE_CASES = [
       </svg>
     ),
     headline: 'For KYB Compliance',
-    body: "CBN's 2026 KYB mandate makes business verification a regulatory obligation. Insyght gives compliance teams a clean documented process for every merchant and partner onboarded.",
+    body: "CBN's 2026 KYB mandate requires more than a CAC check. Insyght covers director BVN and NIN identity verification plus PEP and sanctions screening, giving compliance teams a complete, documented process for every merchant and partner onboarded.",
   },
   {
     iconBg: '#FFF4E6', iconColor: '#C8963E',
@@ -680,7 +687,7 @@ const REPORT_SECTIONS = [
   {
     icon: <UsersIcon />,
     name: 'Directors and Ownership',
-    data: 'Director: Adeyemi Okafor (CEO, 60%)\nDirector: Chinwe Nwosu (CFO, 40%)\nNo adverse director flags detected',
+    data: 'Director: Adeyemi Okafor (CEO, 60%)\nDirector: Chinwe Nwosu (CFO, 40%)\nBVN verified · NIN verified · No PEP flags',
   },
   {
     icon: <ShieldIcon />,
@@ -714,7 +721,12 @@ const FEATURE_ROWS = [
   {
     icon: <UsersIcon />,
     title: 'Directors and Ownership',
-    desc: 'Named directors with shareholding percentages, appointment dates, and nationalities. Each profile is cross referenced for adverse records, Politically Exposed Person connections, and last-minute ownership changes before a transaction, which is one of the most common fraud patterns in Nigeria.',
+    desc: 'Named directors with shareholding percentages, appointment dates, and nationalities. Each profile is cross referenced for adverse records and last-minute ownership changes before a transaction, which is one of the most common fraud patterns in Nigeria.',
+  },
+  {
+    icon: <ShieldIcon />,
+    title: 'Director Identity Verification',
+    desc: 'Every named director is verified against BVN and NIN databases to confirm they are real, living individuals with matching records. Combined with a PEP and sanctions screening, this closes the gap between knowing who owns a company on paper and knowing whether those individuals represent a risk.',
   },
   {
     icon: <ShieldIcon />,
@@ -816,6 +828,8 @@ function ReportSection() {
 const REPORT_FEATURES = [
   'Full CAC registration and status check',
   'Directors and full shareholder breakdown',
+  'Director BVN and NIN identity verification',
+  'PEP and sanctions screening',
   'FIRS TIN and annual returns compliance',
   'Sector licensing verification (CBN, NAFDAC, SEC and more)',
   'Digital presence and domain intelligence',

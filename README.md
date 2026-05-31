@@ -2,7 +2,7 @@
 
 **Know who you're doing business with.**
 
-Nigeria's company intelligence platform. Delivers 11-section due diligence reports on any CAC-registered Nigerian company in under 2 minutes.
+Nigeria's company intelligence platform. Delivers 13-check due diligence reports on any CAC-registered Nigerian company in under 2 minutes.
 
 Built by [BrightSheld Technologies](https://brightsheld.com) · Lagos, Nigeria.
 
@@ -19,6 +19,8 @@ Every report covers three intelligence tiers:
 **Tier 1 — Core Identity and Compliance**
 - Company identity and CAC registration status
 - Directors, shareholders, and ownership structure
+- Director BVN and NIN identity verification
+- PEP and sanctions screening for all named directors
 - Annual returns and compliance history
 - FIRS Tax Identification Number verification
 - SCUML registration check for regulated non-financial businesses
@@ -35,7 +37,7 @@ Every report covers three intelligence tiers:
 - NCC licence for telecoms and ISPs
 - NAICOM licence for insurance companies
 
-Every report ends with an AI-generated risk score (0–100) and a plain English risk summary.
+Every report ends with an AI generated risk score (0–100) and a plain English risk summary.
 
 ---
 
