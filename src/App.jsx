@@ -15,7 +15,7 @@ const CheckIcon = ({ size = 16 }) => (
 )
 
 const ShieldIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M9 1.5L2.5 4.5v5c0 3.5 2.8 6.5 6.5 7 3.7-.5 6.5-3.5 6.5-7v-5L9 1.5z" />
     <polyline points="6 9 8 11 12 7" />
   </svg>
@@ -94,6 +94,14 @@ const ArrowRightIcon = () => (
   </svg>
 )
 
+const LicenceIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2" y="2" width="14" height="14" rx="2" />
+    <polyline points="6 9 8 11 12 7" />
+    <line x1="5" y1="5.5" x2="9" y2="5.5" />
+  </svg>
+)
+
 const TwitterIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
     <path d="M12.6 0h2.4L9.7 6.1 16 16h-4.9L7.2 10.4 2.5 16H.1l5.7-6.5L0 0h5l3.5 5.1L12.6 0zm-.8 14.4h1.3L4.2 1.4H2.8l9 13z" />
@@ -108,10 +116,10 @@ const LinkedInIcon = () => (
 
 /* ── Marquee data ─────────────────────────────────────────────── */
 const MARQUEE_NAMES = [
-  'Raven Capital', 'Lex Associates', 'TrustPay Nigeria', 'BuildCore Ltd',
-  'Veridian Partners', 'Apex Procurement', 'Lagos Legal Group',
-  'Raven Capital', 'Lex Associates', 'TrustPay Nigeria', 'BuildCore Ltd',
-  'Veridian Partners', 'Apex Procurement', 'Lagos Legal Group',
+  'Alpha Procurement Ltd', 'Okafor & Partners', 'First Alliance Capital', 'Greenfield Properties',
+  'Meridian Consulting', 'Lagos Legal Group', 'Premier Trade Partners', 'Integrity Advisory',
+  'Alpha Procurement Ltd', 'Okafor & Partners', 'First Alliance Capital', 'Greenfield Properties',
+  'Meridian Consulting', 'Lagos Legal Group', 'Premier Trade Partners', 'Integrity Advisory',
 ]
 
 /* ── Navigation ──────────────────────────────────────────────── */
@@ -137,9 +145,9 @@ function Nav() {
 
           <div className="nav-right">
             <ul className="nav-links" role="list">
+              <li><a href="#who-uses" onClick={e => handleNavLink(e, 'who-uses')}>Who it&apos;s for</a></li>
               <li><a href="#how-it-works" onClick={e => handleNavLink(e, 'how-it-works')}>How it works</a></li>
               <li><a href="#pricing" onClick={e => handleNavLink(e, 'pricing')}>Pricing</a></li>
-              <li><a href="#pricing" onClick={e => handleNavLink(e, 'pricing')}>For Teams</a></li>
             </ul>
             <a href="#hero" className="btn-nav-cta" onClick={e => handleNavLink(e, 'hero')}>Get a Report</a>
           </div>
@@ -167,9 +175,9 @@ function Nav() {
       >
         <div className="drawer-overlay" onClick={closeDrawer} aria-hidden="true" />
         <div className="drawer-panel">
+          <a href="#who-uses" onClick={e => handleNavLink(e, 'who-uses')}>Who it&apos;s for</a>
           <a href="#how-it-works" onClick={e => handleNavLink(e, 'how-it-works')}>How it works</a>
           <a href="#pricing" onClick={e => handleNavLink(e, 'pricing')}>Pricing</a>
-          <a href="#pricing" onClick={e => handleNavLink(e, 'pricing')}>For Teams</a>
           <a href="#hero" className="drawer-cta" onClick={e => handleNavLink(e, 'hero')}>Get a Report</a>
         </div>
       </div>
@@ -194,23 +202,26 @@ function Hero() {
 
           <p className="hero-subheadline">
             Before you sign a contract, onboard a vendor, or release payment to any Nigerian
-            company, run an Insyght check. Get verified CAC data, director profiles, risk
-            scores, media mentions, and digital presence in a single PDF report. Ready in
-            under 2 minutes.
+            company, run an Insyght check. Get verified CAC data, director profiles, tax
+            compliance, sector licensing, and an AI risk score in a single PDF report.
+            Ready in under 2 minutes.
           </p>
 
           <div className="hero-buttons">
             <a href="#hero" className="btn-primary">
               Run a Free Search <ArrowRightIcon />
             </a>
-            <a href="#report" className="btn-outline"
-              onClick={e => { e.preventDefault(); document.getElementById('report')?.scrollIntoView({ behavior: 'smooth' }) }}>
+            <a
+              href="#report"
+              className="btn-outline"
+              onClick={e => { e.preventDefault(); document.getElementById('report')?.scrollIntoView({ behavior: 'smooth' }) }}
+            >
               See Sample Report
             </a>
           </div>
 
           <div className="trust-row" role="list">
-            {['CAC Verified Data', 'Risk Scored Reports', 'PDF in Under 2 Minutes'].map(label => (
+            {['CAC Verified Data', '11 Intelligence Checks', 'PDF in Under 2 Minutes'].map(label => (
               <div key={label} className="trust-item" role="listitem">
                 <span style={{ color: 'var(--success)', display: 'flex' }}>
                   <CheckIcon size={14} />
@@ -258,15 +269,15 @@ function Hero() {
                 <div className="result-header">
                   <div>
                     <div className="result-name">Zenith Trading Ltd</div>
-                    <div className="result-rc">RC Number: 1234567</div>
+                    <div className="result-rc">RC Number: 1087432</div>
                   </div>
                   <span className="badge-active" aria-label="Company status: Active">ACTIVE</span>
                 </div>
 
                 <dl className="result-meta">
                   <div className="result-row">
-                    <dt className="result-label">Registered</dt>
-                    <dd className="result-value">14 March 2018</dd>
+                    <dt className="result-label">Incorporated</dt>
+                    <dd className="result-value">22 September 2017</dd>
                   </div>
                   <div className="result-row">
                     <dt className="result-label">Type</dt>
@@ -281,10 +292,10 @@ function Hero() {
                 <div className="result-footer">
                   <span className="result-score-label">Risk Score</span>
                   <div className="score-bar-wrap">
-                    <div className="score-bar" role="progressbar" aria-valuenow={22} aria-valuemin={0} aria-valuemax={100} aria-label="Risk score 22 out of 100">
-                      <div className="score-fill" />
+                    <div className="score-bar" role="progressbar" aria-valuenow={18} aria-valuemin={0} aria-valuemax={100} aria-label="Risk score 18 out of 100">
+                      <div className="score-fill" style={{ width: '18%' }} />
                     </div>
-                    <span className="score-num">22/100</span>
+                    <span className="score-num">18/100</span>
                   </div>
                 </div>
               </div>
@@ -317,25 +328,75 @@ function SocialProof() {
   )
 }
 
+/* ── Who It's Built For ───────────────────────────────────────── */
+const PERSONAS = [
+  {
+    icon: <BuildingIcon />,
+    role: 'Procurement Officers',
+    headline: 'One bad vendor approval can end your career.',
+    body: 'Insyght gives procurement teams a fast, documentable way to verify any supplier before a payment is raised or a contract is signed. Every check creates a paper trail your audit committee can see.',
+  },
+  {
+    icon: <FileIcon />,
+    role: 'Lawyers and Law Firms',
+    headline: 'Your client is about to sign. Do you know who is on the other side?',
+    body: 'Run a full counterparty check before any contract, acquisition, or partnership agreement is finalised. Reports are available in your firm\'s branding so the due diligence looks entirely yours.',
+  },
+  {
+    icon: <CreditCardIcon />,
+    role: 'Banks and Fintechs',
+    headline: "The CBN's 2026 KYB mandate is not optional.",
+    body: 'CBN\'s mandatory KYB requirements make business verification a regulatory obligation. Insyght plugs directly into your merchant onboarding and SME lending workflow as a clean, documented check.',
+  },
+  {
+    icon: <ShieldIcon />,
+    role: 'Investors and Individuals',
+    headline: 'Every fake investment company in Nigeria has a CAC number.',
+    body: 'A CAC registration number does not mean a company is licensed to take your money. Insyght checks SEC registration, actual operational history, and director track record before you commit a single naira.',
+  },
+]
+
+function WhoUsesInsyght() {
+  return (
+    <section id="who-uses" className="section who-section">
+      <div className="section-inner">
+        <h2 className="section-title">Built for professionals who cannot afford to be wrong</h2>
+        <div className="persona-grid" role="list">
+          {PERSONAS.map(p => (
+            <article key={p.role} className="persona-card" role="listitem">
+              <div className="persona-icon-wrap" aria-hidden="true">
+                {p.icon}
+              </div>
+              <div className="persona-role">{p.role}</div>
+              <p className="persona-headline">{p.headline}</p>
+              <p className="persona-body">{p.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ── How It Works ─────────────────────────────────────────────── */
 const STEPS = [
   {
     num: '01',
     icon: <SearchIcon />,
     title: 'Search',
-    desc: 'Enter any company name or CAC RC number. Insyght searches the official CAC database and cross-references public records to confirm the company is exactly who they claim to be.',
+    desc: 'Enter any company name or CAC RC number. A free preview shows basic registration status immediately so you can confirm the company exists before paying.',
   },
   {
     num: '02',
     icon: <CreditCardIcon />,
     title: 'Pay',
-    desc: 'Pay ₦10,000 securely via Paystack. No subscriptions, no hidden fees, no recurring charges. Each payment gives you one complete company intelligence report.',
+    desc: 'Pay ₦10,000 securely via Paystack. No subscriptions, no hidden fees, no recurring charges. Each payment gives you one complete 11-section intelligence report.',
   },
   {
     num: '03',
     icon: <ZapIcon />,
     title: 'Know',
-    desc: 'Your report is ready in under 2 minutes. Download it as a formatted PDF to share with your team, attach to a vendor file, or present in a board meeting.',
+    desc: 'Your full report is ready in under 2 minutes. View it on screen immediately, download it as a formatted PDF, and share it with your team or attach it to your vendor file.',
   },
 ]
 
@@ -366,21 +427,26 @@ const REPORT_SECTIONS = [
   {
     icon: <BuildingIcon />,
     name: 'Company Identity',
-    data: 'RC Number: 1234567 · Zenith Trading Ltd\nStatus: Active · Incorporated: 14 Mar 2018\nRegistered Address: 45 Broad Street, Lagos Island',
+    data: 'RC 1087432 · Zenith Trading Ltd\nStatus: Active · Incorporated: 22 Sep 2017\nRegistered Address: 14 Broad Street, Lagos Island',
   },
   {
     icon: <UsersIcon />,
-    name: 'Directors & Ownership',
+    name: 'Directors and Ownership',
     data: 'Director: Adeyemi Okafor (CEO, 60%)\nDirector: Chinwe Nwosu (CFO, 40%)\nNo adverse director flags detected',
+  },
+  {
+    icon: <ShieldIcon />,
+    name: 'Tax and Compliance',
+    data: 'FIRS TIN: 1008432001\nVAT Registered: Yes\nAnnual Returns: Filed (2023, 2024)',
   },
   {
     icon: <GlobeIcon />,
     name: 'Digital Presence',
-    data: 'Website: zenithtradingltd.com (Active)\nLinkedIn: 140 followers · Twitter: @zenithtrading\nSSL Valid · Domain registered 2019',
+    data: 'Website: zenithtradingltd.com (Active)\nDomain Age: 6 years · SSL: Valid\nLinkedIn: 140 followers · Google Business: Listed',
   },
   {
     icon: <NewsIcon />,
-    name: 'News & Mentions',
+    name: 'News and Media',
     data: 'Businessday: 3 mentions (2023 to 2025)\nPunch: No adverse mentions found\nNAN: 1 business feature article',
   },
   {
@@ -394,28 +460,33 @@ const REPORT_SECTIONS = [
 const FEATURE_ROWS = [
   {
     icon: <BuildingIcon />,
-    title: 'Company Identity',
-    desc: 'Full CAC registration details including RC number, registered office address, company type, and date of incorporation. Every data point is verified directly against the official CAC database.',
+    title: 'Company Identity and Status',
+    desc: 'Full CAC registration details including RC number, registered address, company type, and incorporation date. Crucially, Insyght surfaces companies that are struck off or inactive — a status that does not always appear in a basic CAC search.',
   },
   {
     icon: <UsersIcon />,
     title: 'Directors and Ownership',
-    desc: 'Named directors with shareholding percentages, appointment dates, and nationalities. Each profile is cross-referenced for adverse records and Politically Exposed Person connections.',
+    desc: 'Named directors with shareholding percentages, appointment dates, and nationalities. Each profile is cross-referenced for adverse records, Politically Exposed Person connections, and last-minute changes in ownership before a transaction — a common fraud pattern.',
+  },
+  {
+    icon: <ShieldIcon />,
+    title: 'Tax and Regulatory Compliance',
+    desc: 'FIRS Tax Identification Number verification and VAT registration status. Annual returns filing history flagged by compliance level. A company claiming active commercial operations with no traceable TIN is a significant red flag.',
+  },
+  {
+    icon: <LicenceIcon />,
+    title: 'Sector Licensing Checks',
+    desc: 'For regulated industries, Insyght verifies licences directly: CBN for financial services, NAFDAC for food and pharmaceuticals, SEC for investment and capital markets, SCUML for designated non-financial businesses. A company operating in a regulated sector without a licence is breaking the law regardless of their CAC status.',
   },
   {
     icon: <GlobeIcon />,
-    title: 'Digital Presence',
-    desc: 'Website health, SSL validity, domain registration age, and social media activity. These signals quickly distinguish companies with real commercial operations from those that exist on paper only.',
-  },
-  {
-    icon: <NewsIcon />,
-    title: 'News and Media Mentions',
-    desc: 'Coverage aggregated from Nigerian business media including Businessday, Punch, Vanguard, and The Cable. Each mention is automatically categorised by sentiment so you can spot red flags at a glance.',
+    title: 'Digital Presence and Media',
+    desc: 'Website health, SSL validity, domain registration age, and social media activity. Insyght automatically flags the domain age versus company age contradiction — a company claiming seven years of operation whose website was registered three months ago has a problem.',
   },
   {
     icon: <BrainIcon />,
     title: 'AI Risk Score and Summary',
-    desc: 'An overall risk score from 0 to 100, backed by a plain-English assessment of key risk factors. Designed for decision-makers who need the critical insight before reading the full report.',
+    desc: 'An overall risk score from 0 to 100, backed by a plain-English assessment written like a senior analyst. Synthesises every data point across all sections into a single verdict: Low, Medium, or High risk — with specific reasons stated.',
   },
 ]
 
@@ -423,13 +494,13 @@ function ReportSection() {
   return (
     <section id="report" className="section report-section-bg" aria-label="What's inside a report">
       <div className="section-inner">
-        <h2 className="section-title left">Everything inside every Insyght company report</h2>
+        <h2 className="section-title left">Everything inside every Insyght report</h2>
         <div className="report-grid">
           <div className="mock-report" role="img" aria-label="Sample intelligence report preview">
             <div className="mock-report-header">
               <div>
                 <div className="mock-report-title">Zenith Trading Ltd</div>
-                <div className="mock-report-sub">RC 1234567 · Intelligence Report</div>
+                <div className="mock-report-sub">RC 1087432 · Intelligence Report</div>
               </div>
               <span className="report-stamp">VERIFIED</span>
             </div>
@@ -442,14 +513,13 @@ function ReportSection() {
                   </div>
                   {sec.isAI ? (
                     <>
-                      <div className="badge-medium-risk">MEDIUM RISK</div>
+                      <div className="badge-low-risk" style={{ marginLeft: '1.625rem', marginBottom: '0.5rem', display: 'inline-block' }}>LOW RISK</div>
                       <div className="report-ai-wrap">
                         <p className="report-ai-text">
-                          Zenith Trading Ltd is registered and active with the CAC. Directors
-                          show no adverse flags in public records, but the company has limited
-                          trading history and a thin digital footprint. We recommend requesting
-                          audited financial statements for any engagement above ₦5 million.
-                          No litigation records were found in public databases.
+                          Zenith Trading Ltd is registered and active with the CAC. All annual
+                          returns are filed and current. Directors show no adverse flags in public
+                          records and the company holds a valid FIRS TIN. Domain age matches
+                          incorporation date. No litigation or adverse media found. Risk level: Low.
                         </p>
                         <div className="report-ai-fade" aria-hidden="true" />
                       </div>
@@ -486,24 +556,28 @@ function ReportSection() {
 }
 
 /* ── Pricing ──────────────────────────────────────────────────── */
-const SINGLE_FEATURES = [
-  'Full CAC registration verification',
-  'Directors and shareholder breakdown',
-  'Digital presence and web health check',
-  'Nigerian media news mentions',
+const REPORT_FEATURES = [
+  'Full CAC registration and status check',
+  'Directors and full shareholder breakdown',
+  'FIRS TIN and annual returns compliance',
+  'Sector licensing verification (CBN, NAFDAC, SEC and more)',
+  'Digital presence and domain intelligence',
+  'News and media sentiment scan',
   'AI risk score and plain-English summary',
   'Branded PDF download',
 ]
 
 const TEAM_FEATURES = [
-  '20 reports per month',
+  '20 reports included per month',
+  'Additional reports at ₦4,000 each',
   'Team dashboard with shared report history',
+  'Multiple user accounts',
   'Company monitoring and change alerts',
   'Priority support',
   'White-label PDF option',
 ]
 
-function PricingCard({ plan, price, priceNote, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null }) {
+function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null }) {
   return (
     <article className={`pricing-card${featured ? ' featured' : ''}`}>
       {popular && <div className="popular-badge" aria-label="Most popular plan">{popular}</div>}
@@ -513,6 +587,7 @@ function PricingCard({ plan, price, priceNote, desc, features, cta, ctaStyle = '
         {price}
         {priceNote && <span className="plan-price-per">{priceNote}</span>}
       </div>
+      {sub && <div className="plan-sub">{sub}</div>}
       <p className="plan-desc">{desc}</p>
       <div className="pricing-divider" aria-hidden="true" />
       <ul className="features-list" role="list">
@@ -536,34 +611,49 @@ function Pricing() {
     <section id="pricing" className="section">
       <div className="section-inner">
         <h2 className="section-title">Simple pricing. No subscription required.</h2>
-        <div className="pricing-grid">
+        <div className="pricing-grid pricing-grid-4">
           <PricingCard
             plan="Single Report"
             price="₦10,000"
-            desc="One full intelligence report on any CAC-registered Nigerian company. Pay once, download immediately. No account needed."
-            features={SINGLE_FEATURES}
+            sub="per report"
+            desc="One full intelligence report on any CAC-registered Nigerian company. Pay once, download immediately."
+            features={REPORT_FEATURES}
             cta="Get a Report"
           />
           <PricingCard
             plan="Five Reports"
             price="₦40,000"
-            desc="Five full company intelligence reports at a better per-report rate. Suited for vendor onboarding, legal due diligence, and active deal pipelines."
-            features={SINGLE_FEATURES}
+            sub="₦8,000 per report"
+            desc="Five full reports at a better rate. Ideal for occasional professional use and single-matter due diligence."
+            features={REPORT_FEATURES}
+            cta="Get Started"
+            saveBadge="Save ₦10,000"
+          />
+          <PricingCard
+            plan="Ten Reports"
+            price="₦75,000"
+            sub="₦7,500 per report"
+            desc="Ten reports at the best per-report rate. Suited for law firms, procurement teams, and active deal pipelines."
+            features={REPORT_FEATURES}
             cta="Get Started"
             featured
-            popular="MOST POPULAR"
-            saveBadge="Save ₦10,000"
+            popular="BEST VALUE"
+            saveBadge="Save ₦25,000"
           />
           <PricingCard
             plan="Team Plan"
             price="₦150,000"
             priceNote="/month"
-            desc="Designed for law firms, banks, procurement departments, and compliance teams that run regular company checks."
+            desc="For law firms, banks, and procurement departments running regular company checks."
             features={TEAM_FEATURES}
             cta="Contact Sales"
             ctaStyle="outline"
           />
         </div>
+        <p className="pricing-note">
+          Need more than 50 reports per month or API access?{' '}
+          <a href="mailto:hello@insyght.io">Contact us for Enterprise pricing.</a>
+        </p>
       </div>
     </section>
   )
@@ -577,9 +667,16 @@ function FinalCTA() {
         <h2 className="cta-headline" id="cta-headline">
           Don&apos;t sign until you&apos;ve run an Insyght check.
         </h2>
-        <p className="cta-sub">Search any CAC-registered Nigerian company and get your report in under 2 minutes. No subscription, no commitment.</p>
-        <a href="#hero" className="btn-primary" style={{ fontSize: '1.0625rem', padding: '1rem 2rem' }}
-          onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}>
+        <p className="cta-sub">
+          Search any CAC-registered Nigerian company and get your full intelligence report
+          in under 2 minutes. No subscription, no commitment.
+        </p>
+        <a
+          href="#hero"
+          className="btn-primary"
+          style={{ fontSize: '1.0625rem', padding: '1rem 2rem' }}
+          onClick={e => { e.preventDefault(); document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }) }}
+        >
           Get a Report <ArrowRightIcon />
         </a>
       </div>
@@ -605,17 +702,17 @@ function Footer() {
           <div className="footer-col">
             <h5>Product</h5>
             <ul role="list">
+              <li><a href="#who-uses" onClick={e => { e.preventDefault(); document.getElementById('who-uses')?.scrollIntoView({ behavior: 'smooth' }) }}>Who it&apos;s for</a></li>
               <li><a href="#how-it-works" onClick={e => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }) }}>How it works</a></li>
-              <li><a href="#pricing" onClick={e => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }}>Pricing</a></li>
               <li><a href="#report" onClick={e => { e.preventDefault(); document.getElementById('report')?.scrollIntoView({ behavior: 'smooth' }) }}>Sample Report</a></li>
-              <li><a href="#api">API Docs</a></li>
+              <li><a href="#pricing" onClick={e => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }}>Pricing</a></li>
             </ul>
           </div>
 
           <div className="footer-col">
             <h5>Company</h5>
             <ul role="list">
-              <li><a href="#about">About</a></li>
+              <li><a href="#about">About Insyght</a></li>
               <li><a href="#blog">Blog</a></li>
               <li><a href="#careers">Careers</a></li>
             </ul>
@@ -668,6 +765,7 @@ export default function App() {
       <main>
         <Hero />
         <SocialProof />
+        <WhoUsesInsyght />
         <HowItWorks />
         <ReportSection />
         <Pricing />
