@@ -193,7 +193,7 @@ function Hero() {
         <div className="hero-left">
           <div className="hero-badge" aria-label="Product category">
             <span className="badge-dot" aria-hidden="true" />
-            Nigeria&apos;s Company Intelligence Platform
+            Nigerian Company Intelligence
           </div>
 
           <h1 className="hero-headline">
@@ -201,10 +201,10 @@ function Hero() {
           </h1>
 
           <p className="hero-subheadline">
-            Before you sign a contract, onboard a vendor, or release payment to any Nigerian
-            company, run an Insyght check. Get verified CAC data, director profiles, tax
-            compliance, sector licensing, and an AI risk score in a single PDF report.
-            Ready in under 2 minutes.
+            Before you sign a contract or release payment to any Nigerian company, run an
+            Insyght check. Every report covers CAC registration, directors and shareholders,
+            FIRS tax compliance, sector licensing from CBN to NAFDAC to SEC, digital
+            footprint, media mentions, and an AI risk score. One PDF. Under 2 minutes.
           </p>
 
           <div className="hero-buttons">
@@ -221,7 +221,7 @@ function Hero() {
           </div>
 
           <div className="trust-row" role="list">
-            {['CAC Verified Data', '11 Intelligence Checks', 'PDF in Under 2 Minutes'].map(label => (
+            {['CAC to SEC Verified', '11 Intelligence Checks', 'PDF in Under 2 Minutes'].map(label => (
               <div key={label} className="trust-item" role="listitem">
                 <span style={{ color: 'var(--success)', display: 'flex' }}>
                   <CheckIcon size={14} />
@@ -461,12 +461,12 @@ const FEATURE_ROWS = [
   {
     icon: <BuildingIcon />,
     title: 'Company Identity and Status',
-    desc: 'Full CAC registration details including RC number, registered address, company type, and incorporation date. Crucially, Insyght surfaces companies that are struck off or inactive — a status that does not always appear in a basic CAC search.',
+    desc: 'Full CAC registration details including RC number, registered address, company type, and incorporation date. Crucially, Insyght surfaces companies that are struck off or inactive, a status that does not always appear in a basic CAC search.',
   },
   {
     icon: <UsersIcon />,
     title: 'Directors and Ownership',
-    desc: 'Named directors with shareholding percentages, appointment dates, and nationalities. Each profile is cross-referenced for adverse records, Politically Exposed Person connections, and last-minute changes in ownership before a transaction — a common fraud pattern.',
+    desc: 'Named directors with shareholding percentages, appointment dates, and nationalities. Each profile is cross referenced for adverse records, Politically Exposed Person connections, and last-minute ownership changes before a transaction, which is one of the most common fraud patterns in Nigeria.',
   },
   {
     icon: <ShieldIcon />,
@@ -481,12 +481,12 @@ const FEATURE_ROWS = [
   {
     icon: <GlobeIcon />,
     title: 'Digital Presence and Media',
-    desc: 'Website health, SSL validity, domain registration age, and social media activity. Insyght automatically flags the domain age versus company age contradiction — a company claiming seven years of operation whose website was registered three months ago has a problem.',
+    desc: 'Website health, SSL validity, domain registration age, and social media activity. Insyght automatically flags domain age against company registration date. A company claiming seven years of operation whose website was registered three months ago has a problem.',
   },
   {
     icon: <BrainIcon />,
     title: 'AI Risk Score and Summary',
-    desc: 'An overall risk score from 0 to 100, backed by a plain-English assessment written like a senior analyst. Synthesises every data point across all sections into a single verdict: Low, Medium, or High risk — with specific reasons stated.',
+    desc: 'An overall risk score from 0 to 100, backed by a plain English assessment written like a senior analyst. Every data point across all sections is synthesised into a single verdict: Low, Medium, or High risk, with specific reasons stated clearly.',
   },
 ]
 
@@ -563,7 +563,7 @@ const REPORT_FEATURES = [
   'Sector licensing verification (CBN, NAFDAC, SEC and more)',
   'Digital presence and domain intelligence',
   'News and media sentiment scan',
-  'AI risk score and plain-English summary',
+  'AI risk score and plain English summary',
   'Branded PDF download',
 ]
 
@@ -574,7 +574,7 @@ const TEAM_FEATURES = [
   'Multiple user accounts',
   'Company monitoring and change alerts',
   'Priority support',
-  'White-label PDF option',
+  'White label PDF option',
 ]
 
 function PricingCard({ plan, price, priceNote, sub, desc, features, cta, ctaStyle = 'primary', featured = false, saveBadge = null, popular = null }) {
