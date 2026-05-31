@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 /* ── Inline SVG icons ────────────────────────────────────────── */
 const SearchIcon = () => (
@@ -537,6 +537,139 @@ function HowItWorks() {
   )
 }
 
+/* ── Verification Flow ───────────────────────────────────────── */
+const FLOW_NODES = [
+  { label: 'Company name or RC number entered',       type: 'start'  },
+  { label: 'CAC registration status verified',        type: 'check',     badge: 'ACTIVE'           },
+  { label: 'Directors and ownership cross referenced',type: 'check'  },
+  { label: 'FIRS TIN and annual returns checked',     type: 'check'  },
+  { label: 'Sector licensing confirmed',              type: 'multi',     tags: ['CBN', 'NAFDAC', 'SEC', 'SCUML'] },
+  { label: 'Domain age and media scan completed',     type: 'check'  },
+  { label: 'AI risk score calculated',                type: 'output',    badge: 'LOW RISK · 18/100' },
+]
+
+function VerificationFlow() {
+  return (
+    <section className="flow-section" aria-label="Verification process">
+      <div className="flow-inner">
+        <div className="flow-text reveal">
+          <h2 className="flow-title">
+            Every check runs automatically, in the right order.
+          </h2>
+          <p className="flow-sub">
+            The moment payment is confirmed, Insyght runs all 11 verification
+            steps in sequence — CAC, tax, sector licensing, digital presence,
+            and AI analysis. No manual steps, no waiting.
+          </p>
+        </div>
+        <div className="flow-diagram" aria-label="Verification steps">
+          {FLOW_NODES.map((node, i) => (
+            <div key={i} className={`flow-node flow-node-${node.type}`} style={{ animationDelay: `${i * 0.1}s` }}>
+              <div className="flow-node-dot" aria-hidden="true" />
+              <div className="flow-node-content">
+                <span className="flow-node-label">{node.label}</span>
+                {node.badge && (
+                  <span className={`flow-badge${node.type === 'output' ? ' flow-badge-green' : ''}`}>
+                    {node.badge}
+                  </span>
+                )}
+                {node.tags && (
+                  <div className="flow-tags" aria-label="Covered bodies">
+                    {node.tags.map(tag => <span key={tag} className="flow-tag">{tag}</span>)}
+                  </div>
+                )}
+              </div>
+              {i < FLOW_NODES.length - 1 && <div className="flow-connector" aria-hidden="true" />}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ── Use Case Cards ───────────────────────────────────────────── */
+const USE_CASES = [
+  {
+    iconBg: '#E8F5EE', iconColor: '#2D6A4F',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 1.5L2.5 4.5v5c0 3.5 2.8 6.5 6.5 7 3.7-.5 6.5-3.5 6.5-7v-5L9 1.5z"/>
+        <polyline points="6 9 8 11 12 7"/>
+      </svg>
+    ),
+    headline: 'For Due Diligence',
+    body: 'Before your client signs or your organisation pays, you have a timestamped downloadable record of exactly what was verified. Every Insyght check is audit-ready from day one.',
+  },
+  {
+    iconBg: '#EEF2FF', iconColor: '#4361EE',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="14" height="12" rx="1"/>
+        <path d="M6 4V2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5V4"/>
+        <line x1="6" y1="9" x2="12" y2="9"/>
+        <line x1="6" y1="12" x2="10" y2="12"/>
+      </svg>
+    ),
+    headline: 'For KYB Compliance',
+    body: "CBN's 2026 KYB mandate makes business verification a regulatory obligation. Insyght gives compliance teams a clean documented process for every merchant and partner onboarded.",
+  },
+  {
+    iconBg: '#FFF4E6', iconColor: '#C8963E',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="7" cy="7" r="4.5"/>
+        <line x1="10.5" y1="10.5" x2="14" y2="14"/>
+      </svg>
+    ),
+    headline: 'For Fraud Prevention',
+    body: 'Most fraud in Nigeria hides behind a legitimate CAC number. Insyght checks what a basic search cannot — sector licences, tax compliance, director flags, and media history.',
+  },
+  {
+    iconBg: '#F3EEFF', iconColor: '#7C3AED',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="7" cy="6" r="2.5"/>
+        <path d="M1 16c0-3.3 2.7-6 6-6"/>
+        <circle cx="13" cy="6" r="2.5"/>
+        <path d="M17 16c0-3.3-2.7-6-6-6"/>
+      </svg>
+    ),
+    headline: 'For Investment Safety',
+    body: 'A company can be registered and still be a risk. Insyght checks ownership changes, annual returns compliance, and SEC licensing before you commit a single naira.',
+  },
+]
+
+function UseCaseCards() {
+  return (
+    <section className="usecases-section">
+      <div className="section-inner">
+        <h2 className="section-title reveal">One platform. Every use case.</h2>
+        <div className="usecases-grid" role="list">
+          {USE_CASES.map((uc, i) => (
+            <article
+              key={uc.headline}
+              className="usecase-card reveal"
+              role="listitem"
+              style={{ transitionDelay: `${i * 0.1}s` }}
+            >
+              <div
+                className="usecase-icon-circle"
+                style={{ background: uc.iconBg, color: uc.iconColor }}
+                aria-hidden="true"
+              >
+                {uc.icon}
+              </div>
+              <h3 className="usecase-headline">{uc.headline}</h3>
+              <p className="usecase-body">{uc.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ── What's Inside a Report ───────────────────────────────────── */
 const REPORT_SECTIONS = [
   {
@@ -914,7 +1047,9 @@ export default function App() {
         <IntelligenceCloud />
         <WhoUsesInsyght />
         <HowItWorks />
+        <VerificationFlow />
         <ReportSection />
+        <UseCaseCards />
         <Pricing />
         <FinalCTA />
       </main>

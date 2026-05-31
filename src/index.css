@@ -1845,6 +1845,226 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
+   VERIFICATION FLOW SECTION
+════════════════════════════════════════════════════════════ */
+.flow-section {
+  background: var(--bg-dark);
+  padding: 6rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.flow-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .flow-inner { grid-template-columns: 1fr 1fr; }
+}
+
+.flow-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--text-invert);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.flow-sub {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(245,242,236,0.5);
+  line-height: 1.72;
+}
+
+.flow-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@keyframes flow-in {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: flow-in 0.45s ease both;
+}
+
+.flow-node-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 8px;
+  padding: 0.8rem 1.125rem;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: default;
+}
+
+.flow-node-content:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.flow-node-start .flow-node-content {
+  background: rgba(45,106,79,0.22);
+  border-color: rgba(82,183,136,0.3);
+}
+
+.flow-node-output .flow-node-content {
+  background: rgba(45,106,79,0.2);
+  border-color: rgba(82,183,136,0.35);
+}
+
+.flow-node-label {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(245,242,236,0.8);
+  flex: 1;
+  min-width: 0;
+}
+
+.flow-badge {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  color: rgba(245,242,236,0.7);
+  white-space: nowrap;
+}
+
+.flow-badge-green {
+  background: rgba(45,106,79,0.35);
+  border-color: rgba(82,183,136,0.4);
+  color: #52B788;
+}
+
+.flow-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-top: 0.25rem;
+}
+
+.flow-tag {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(45,106,79,0.22);
+  border: 1px solid rgba(82,183,136,0.28);
+  border-radius: 4px;
+  padding: 0.18rem 0.45rem;
+  color: #52B788;
+}
+
+.flow-connector {
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  margin-left: 1.375rem;
+  position: relative;
+}
+
+.flow-connector::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+}
+
+/* ════════════════════════════════════════════════════════════
+   USE CASE CARDS SECTION
+════════════════════════════════════════════════════════════ */
+.usecases-section {
+  background-color: var(--bg-alt);
+  background-image: var(--bg-pattern);
+  padding: 6rem 1.5rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.usecases-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .usecases-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.usecase-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 2.25rem 2rem;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.usecase-card:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+  border-color: rgba(45,106,79,0.22);
+}
+
+.usecase-icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+.usecase-headline {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1875rem;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+
+.usecase-body {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════════════════════
    CONTINUOUS BACKGROUND PATTERN
    Fixed attachment on desktop keeps the diagonal lines
    phase-locked across section boundaries so they look like
@@ -1856,6 +2076,7 @@ body {
   .who-section,
   #how-it-works,
   .report-section-bg,
+  .usecases-section,
   #pricing {
     background-attachment: fixed;
   }
